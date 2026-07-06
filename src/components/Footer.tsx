@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Zap } from "lucide-react";
+import { Zap, ArrowRight, Github, Twitter, Linkedin, Mail } from "lucide-react";
+import Image from "next/image";
 
 const footerLinks = {
   Company: [
@@ -66,15 +67,18 @@ export default function Footer() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="flex items-center gap-2.5 mb-4"
+              viewport={{ once: false }}
+              className="mb-4"
             >
-              <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center shadow-lg">
-                <Zap className="w-4 h-4 text-white" strokeWidth={2.5} />
+              {/* The user's logo */}
+              <div className="relative w-48 h-24 lg:w-64 lg:h-40 flex items-center">
+                <Image 
+                  src="/logo-darkmode.png" 
+                  alt="DeltaWaveX Logo" 
+                  fill
+                  className="object-contain object-left opacity-90 hover:opacity-100 transition-opacity"
+                />
               </div>
-              <span className="text-white font-bold text-xl tracking-tight">
-                Delta<span className="gradient-text">Wave</span>X
-              </span>
             </motion.div>
             <p className="text-slate-500 text-sm leading-relaxed max-w-xs mb-6">
               Building products that scale. We are a premium technology company and product studio helping startups and businesses build world-class digital products.
@@ -91,7 +95,7 @@ export default function Footer() {
                   id={`footer-social-${label.toLowerCase()}`}
                   className="p-2.5 rounded-xl border border-white/5 text-slate-400 hover:text-white hover:border-white/10 hover:bg-white/5 transition-all duration-200"
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon />
                 </a>
               ))}
             </div>

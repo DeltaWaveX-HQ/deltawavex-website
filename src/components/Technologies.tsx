@@ -53,7 +53,7 @@ const techStack = [
 
 export default function Technologies() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: false, margin: "-80px" });
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
@@ -75,7 +75,7 @@ export default function Technologies() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -97,7 +97,7 @@ export default function Technologies() {
             <motion.div
               key={stack.category}
               initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: stackIndex * 0.1 }}
               className={`bg-slate-900/60 border ${stack.borderColor} rounded-2xl p-6 hover:bg-slate-900/80 transition-all duration-300`}
               onMouseEnter={() => setActiveCategory(stack.category)}
@@ -117,7 +117,7 @@ export default function Technologies() {
                   <motion.div
                     key={tech.name}
                     initial={{ opacity: 0, x: -10 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                     transition={{ delay: stackIndex * 0.1 + techIndex * 0.05 + 0.2 }}
                     className={`flex items-center gap-3 p-3 rounded-xl ${stack.hoverBg} transition-colors duration-200 cursor-default border border-transparent hover:border-white/5`}
                   >

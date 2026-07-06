@@ -58,7 +58,7 @@ const reasons = [
 
 export default function WhyUs() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
     <section id="about" className="py-24 lg:py-32 bg-slate-900/50 relative overflow-hidden">
@@ -71,7 +71,7 @@ export default function WhyUs() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -98,7 +98,7 @@ export default function WhyUs() {
               <motion.div
                 key={reason.title}
                 initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
                 className="group relative bg-slate-900/60 border border-white/5 rounded-2xl p-7 hover:border-white/10 hover:-translate-y-1 transition-all duration-300"
               >
@@ -125,7 +125,7 @@ export default function WhyUs() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-16 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-cyan-600/10 border border-white/5 rounded-3xl p-8 lg:p-12"
         >

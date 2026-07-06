@@ -19,101 +19,192 @@ const services = [
     title: "Mobile App Development",
     description:
       "Native and cross-platform mobile apps built with Flutter and React Native. Performant, beautiful, and user-centric.",
-    color: "from-blue-500 to-cyan-500",
-    glow: "group-hover:shadow-blue-500/20",
-    border: "group-hover:border-blue-500/30",
+    gradient: "135deg, #2563EB, #06B6D4",
+    glowColor: "rgba(37, 99, 235, 0.4)",
+    glowHover: "rgba(37, 99, 235, 0.25)",
+    borderHover: "rgba(37, 99, 235, 0.4)",
+    iconBg: "linear-gradient(135deg, #2563EB, #06B6D4)",
   },
   {
     icon: Globe,
     title: "Web Development",
     description:
       "High-performance web applications using Next.js, React, and modern web technologies that drive conversions.",
-    color: "from-cyan-500 to-teal-500",
-    glow: "group-hover:shadow-cyan-500/20",
-    border: "group-hover:border-cyan-500/30",
+    gradient: "135deg, #06B6D4, #0EA5E9",
+    glowColor: "rgba(6, 182, 212, 0.4)",
+    glowHover: "rgba(6, 182, 212, 0.25)",
+    borderHover: "rgba(6, 182, 212, 0.4)",
+    iconBg: "linear-gradient(135deg, #06B6D4, #0EA5E9)",
   },
   {
     icon: Cloud,
     title: "SaaS Development",
     description:
       "End-to-end SaaS platforms with subscription management, multi-tenancy, and enterprise-grade security.",
-    color: "from-purple-500 to-violet-500",
-    glow: "group-hover:shadow-purple-500/20",
-    border: "group-hover:border-purple-500/30",
+    gradient: "135deg, #8B5CF6, #7C3AED",
+    glowColor: "rgba(139, 92, 246, 0.4)",
+    glowHover: "rgba(139, 92, 246, 0.25)",
+    borderHover: "rgba(139, 92, 246, 0.4)",
+    iconBg: "linear-gradient(135deg, #8B5CF6, #7C3AED)",
   },
   {
     icon: Brain,
     title: "AI & Machine Learning",
     description:
       "Custom AI integrations, intelligent automation, and machine learning models powered by cutting-edge APIs.",
-    color: "from-pink-500 to-rose-500",
-    glow: "group-hover:shadow-pink-500/20",
-    border: "group-hover:border-pink-500/30",
+    gradient: "135deg, #EC4899, #F43F5E",
+    glowColor: "rgba(236, 72, 153, 0.4)",
+    glowHover: "rgba(236, 72, 153, 0.25)",
+    borderHover: "rgba(236, 72, 153, 0.4)",
+    iconBg: "linear-gradient(135deg, #EC4899, #F43F5E)",
   },
   {
     icon: Store,
     title: "Marketplace Platforms",
     description:
       "Two-sided marketplaces with vendor management, payments, reviews, and real-time communication.",
-    color: "from-orange-500 to-amber-500",
-    glow: "group-hover:shadow-orange-500/20",
-    border: "group-hover:border-orange-500/30",
+    gradient: "135deg, #F59E0B, #EF4444",
+    glowColor: "rgba(245, 158, 11, 0.4)",
+    glowHover: "rgba(245, 158, 11, 0.25)",
+    borderHover: "rgba(245, 158, 11, 0.4)",
+    iconBg: "linear-gradient(135deg, #F59E0B, #EF4444)",
   },
   {
     icon: Building2,
     title: "Business Software",
     description:
       "Custom ERP, CRM, and internal tools built for operational efficiency and business intelligence.",
-    color: "from-emerald-500 to-green-500",
-    glow: "group-hover:shadow-emerald-500/20",
-    border: "group-hover:border-emerald-500/30",
+    gradient: "135deg, #10B981, #059669",
+    glowColor: "rgba(16, 185, 129, 0.4)",
+    glowHover: "rgba(16, 185, 129, 0.25)",
+    borderHover: "rgba(16, 185, 129, 0.4)",
+    iconBg: "linear-gradient(135deg, #10B981, #059669)",
   },
   {
     icon: Server,
     title: "Cloud Solutions",
     description:
       "Scalable cloud infrastructure on AWS and Firebase with CI/CD pipelines, monitoring, and 99.9% uptime.",
-    color: "from-sky-500 to-blue-500",
-    glow: "group-hover:shadow-sky-500/20",
-    border: "group-hover:border-sky-500/30",
+    gradient: "135deg, #0EA5E9, #2563EB",
+    glowColor: "rgba(14, 165, 233, 0.4)",
+    glowHover: "rgba(14, 165, 233, 0.25)",
+    borderHover: "rgba(14, 165, 233, 0.4)",
+    iconBg: "linear-gradient(135deg, #0EA5E9, #2563EB)",
   },
   {
     icon: Rocket,
     title: "Startup MVP Development",
     description:
       "Rapid MVP development to validate your idea in weeks. Ship fast, learn faster, and iterate with confidence.",
-    color: "from-violet-500 to-purple-500",
-    glow: "group-hover:shadow-violet-500/20",
-    border: "group-hover:border-violet-500/30",
+    gradient: "135deg, #7C3AED, #8B5CF6",
+    glowColor: "rgba(124, 58, 237, 0.4)",
+    glowHover: "rgba(124, 58, 237, 0.25)",
+    borderHover: "rgba(124, 58, 237, 0.4)",
+    iconBg: "linear-gradient(135deg, #7C3AED, #8B5CF6)",
   },
 ];
+
+// Mouse-tracking 3D tilt card
+function TiltCard({
+  children,
+  service,
+  className,
+}: {
+  children: React.ReactNode;
+  service: (typeof services)[0];
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = ref.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const rotX = ((y - cy) / cy) * -9;
+    const rotY = ((x - cx) / cx) * 9;
+    const glowX = (x / rect.width) * 100;
+    const glowY = (y / rect.height) * 100;
+    card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(8px) scale(1.02)`;
+    card.style.setProperty("--glow-x", `${glowX}%`);
+    card.style.setProperty("--glow-y", `${glowY}%`);
+    card.style.boxShadow = `0 0 30px ${service.glowHover}, 0 0 60px ${service.glowHover}, 0 20px 60px rgba(0,0,0,0.4)`;
+    card.style.borderColor = service.borderHover;
+  };
+
+  const handleMouseLeave = () => {
+    const card = ref.current;
+    if (!card) return;
+    card.style.transform =
+      "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)";
+    card.style.boxShadow = "none";
+    card.style.borderColor = "rgba(255,255,255,0.06)";
+  };
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transition: "transform 0.35s cubic-bezier(0.03, 0.98, 0.52, 0.99), box-shadow 0.35s ease, border-color 0.35s ease",
+        willChange: "transform",
+      }}
+    >
+      {/* Mouse spotlight */}
+      <div
+        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle 200px at var(--glow-x, 50%) var(--glow-y, 50%), rgba(255,255,255,0.04) 0%, transparent 80%)",
+        }}
+      />
+      {children}
+    </div>
+  );
+}
 
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
+    transition: { staggerChildren: 0.07 },
   },
 };
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] },
+  },
 };
 
 export default function Services() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section id="services" className="py-24 lg:py-32 bg-slate-950 relative overflow-hidden">
-      {/* Subtle background */}
-      <div className="absolute inset-0 opacity-[0.02]"
+    <section
+      id="services"
+      className="py-24 lg:py-32 bg-slate-950 relative overflow-hidden"
+    >
+      {/* Background dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.025]"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.8) 1px, transparent 0)`,
           backgroundSize: "48px 48px",
         }}
+      />
+      {/* Section glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-[120px] pointer-events-none"
+        style={{ background: "rgba(37, 99, 235, 0.06)" }}
       />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -121,19 +212,27 @@ export default function Services() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-sm font-semibold text-blue-400 tracking-widest uppercase mb-4">
+          <span
+            className="inline-block text-xs font-bold tracking-[0.2em] uppercase mb-5 px-4 py-2 rounded-full"
+            style={{
+              color: "#60A5FA",
+              background: "rgba(37, 99, 235, 0.08)",
+              border: "1px solid rgba(37, 99, 235, 0.2)",
+            }}
+          >
             What We Build
           </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
             Services Built for{" "}
             <span className="gradient-text">Scale</span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            From concept to deployment, we deliver premium digital products across every platform and technology.
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            From concept to deployment, we deliver premium digital products
+            across every platform and technology.
           </p>
         </motion.div>
 
@@ -148,30 +247,49 @@ export default function Services() {
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                className={`group relative bg-slate-900/50 border border-white/5 rounded-2xl p-6 cursor-pointer transition-all duration-300 hover:bg-slate-900/80 hover:shadow-xl ${service.glow} ${service.border} hover:-translate-y-1`}
-              >
-                {/* Icon */}
-                <div
-                  className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${service.color} mb-4 shadow-lg`}
+              <motion.div key={index} variants={cardVariants} className="group">
+                <TiltCard
+                  service={service}
+                  className="relative rounded-2xl p-6 cursor-pointer h-full overflow-hidden"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.025)",
+                    border: "1px solid rgba(255,255,255,0.06)",
+                  } as React.CSSProperties}
                 >
-                  <Icon className="w-5 h-5 text-white" strokeWidth={2} />
-                </div>
+                  {/* Top highlight line */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `linear-gradient(${service.gradient})` }}
+                  />
 
-                {/* Content */}
-                <h3 className="text-white font-semibold text-base mb-2 leading-snug">
-                  {service.title}
-                </h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  {service.description}
-                </p>
+                  {/* Icon */}
+                  <div
+                    className="inline-flex p-3 rounded-xl mb-5 shadow-lg"
+                    style={{
+                      background: service.iconBg,
+                      boxShadow: `0 0 20px ${service.glowColor}40, 0 4px 16px rgba(0,0,0,0.3)`,
+                    }}
+                  >
+                    <Icon className="w-5 h-5 text-white" strokeWidth={2} />
+                  </div>
 
-                {/* Hover gradient overlay */}
-                <div
-                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300`}
-                />
+                  {/* Content */}
+                  <h3 className="text-white font-bold text-base mb-2.5 leading-snug">
+                    {service.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">
+                    {service.description}
+                  </p>
+
+                  {/* Bottom arrow */}
+                  <div
+                    className="mt-5 text-xs font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0"
+                    style={{ color: "#60A5FA" }}
+                  >
+                    Learn more
+                    <span>→</span>
+                  </div>
+                </TiltCard>
               </motion.div>
             );
           })}

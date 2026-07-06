@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -34,22 +35,22 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-24 lg:h-32 transition-all duration-300">
           {/* Logo */}
           <motion.a
             href="#"
-            className="flex items-center gap-2.5 group"
+            className="flex items-center group"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="relative">
-              <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center shadow-lg group-hover:shadow-blue-500/50 transition-shadow duration-300">
-                <Zap className="w-4 h-4 text-white" strokeWidth={2.5} />
-              </div>
-              <div className="absolute inset-0 rounded-lg gradient-bg opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
+            {/* The user's logo */}
+            <div className="relative w-40 h-20 lg:w-56 lg:h-28 flex items-center">
+              <Image 
+                src="/logo-darkmode.png" 
+                alt="DeltaWaveX Logo" 
+                fill
+                className="object-contain object-left"
+              />
             </div>
-            <span className="text-white font-bold text-lg tracking-tight">
-              Delta<span className="gradient-text">Wave</span>X
-            </span>
           </motion.a>
 
           {/* Desktop Nav */}
