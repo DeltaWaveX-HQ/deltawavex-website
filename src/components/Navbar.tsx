@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -38,17 +38,19 @@ export default function Navbar() {
           {/* Logo */}
           <motion.a
             href="#"
-            className="flex items-center gap-2.5 group"
+            className="flex items-center gap-3 group"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="relative">
-              <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center shadow-lg group-hover:shadow-blue-500/50 transition-shadow duration-300">
-                <Zap className="w-4 h-4 text-white" strokeWidth={2.5} />
-              </div>
-              <div className="absolute inset-0 rounded-lg gradient-bg opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
+            <div className="relative w-9 h-9 flex items-center justify-center">
+              <img
+                src="/logo.png"
+                alt="DeltaWaveX Logo"
+                className="w-full h-full object-contain filter brightness-[1.6] saturate-[1.5] transition-all duration-300 group-hover:filter-none group-hover:scale-105"
+              />
             </div>
-            <span className="text-white font-bold text-lg tracking-tight">
-              Delta<span className="gradient-text">Wave</span>X
+            <span className="font-bold text-xl tracking-tight select-none">
+              <span className="text-white group-hover:text-[#444e58] transition-colors duration-300">DeltaWave</span>
+              <span className="text-emerald-400 group-hover:text-[#235633] transition-colors duration-300">X</span>
             </span>
           </motion.a>
 
