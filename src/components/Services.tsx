@@ -109,10 +109,12 @@ function TiltCard({
   children,
   service,
   className,
+  style,
 }: {
   children: React.ReactNode;
   service: (typeof services)[0];
   className?: string;
+  style?: React.CSSProperties;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -153,6 +155,7 @@ function TiltCard({
       style={{
         transition: "transform 0.35s cubic-bezier(0.03, 0.98, 0.52, 0.99), box-shadow 0.35s ease, border-color 0.35s ease",
         willChange: "transform",
+        ...style,
       }}
     >
       {/* Mouse spotlight */}
@@ -180,7 +183,7 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] },
+    transition: { duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] as const },
   },
 };
 
