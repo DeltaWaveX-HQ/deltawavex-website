@@ -9,9 +9,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Delta Wave X — Building Products That Scale",
-  description:
-    "Delta Wave X is a premium technology company and product studio. We build mobile apps, web platforms, AI solutions, SaaS systems, and custom software that scale.",
+  title: "DeltaWaveX",
+  description: "DeltaWaveX is a premium technology company and product studio. We build mobile apps, web platforms, AI solutions, SaaS systems, and custom software that scale.",
+  icons: {
+    icon: "/logo.png",
+  },
   keywords: [
     "mobile app development",
     "web development",
@@ -28,15 +30,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://deltawavex.com",
     siteName: "Delta Wave X",
-    title: "Delta Wave X — Building Products That Scale",
-    description:
-      "We transform ideas into powerful digital products through mobile apps, web platforms, AI solutions, SaaS systems, and custom software development.",
+    title: "DeltaWaveX",
+    description: "We transform ideas into powerful digital products through mobile apps, web platforms, AI solutions, SaaS systems, and custom software development.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Delta Wave X — Building Products That Scale",
-    description:
-      "Premium technology company building scalable digital products.",
+    title: "DeltaWaveX",
+    description: "Premium technology company building scalable digital products.",
   },
   robots: {
     index: true,

@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import Image from "next/image";
 
 const techStack = [
   {
@@ -10,10 +11,10 @@ const techStack = [
     borderColor: "border-blue-500/20",
     hoverBg: "hover:bg-blue-500/5",
     techs: [
-      { name: "React", icon: "⚛️", desc: "UI Library" },
-      { name: "Next.js", icon: "▲", desc: "Web Framework" },
-      { name: "Flutter", icon: "🐦", desc: "Mobile Apps" },
-      { name: "React Native", icon: "📱", desc: "Cross Platform" },
+      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", desc: "UI Library" },
+      { name: "Next.js", icon: "/next.svg", desc: "Web Framework" },
+      { name: "Flutter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg", desc: "Mobile Apps" },
+      { name: "React Native", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", desc: "Cross Platform" },
     ],
   },
   {
@@ -22,9 +23,9 @@ const techStack = [
     borderColor: "border-purple-500/20",
     hoverBg: "hover:bg-purple-500/5",
     techs: [
-      { name: "Node.js", icon: "🟢", desc: "Runtime" },
-      { name: "Firebase", icon: "🔥", desc: "Backend-as-a-Service" },
-      { name: "PostgreSQL", icon: "🐘", desc: "Database" },
+      { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg", desc: "Runtime" },
+      { name: "Firebase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg", desc: "Backend-as-a-Service" },
+      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", desc: "Database" },
     ],
   },
   {
@@ -33,9 +34,9 @@ const techStack = [
     borderColor: "border-pink-500/20",
     hoverBg: "hover:bg-pink-500/5",
     techs: [
-      { name: "Python", icon: "🐍", desc: "AI Language" },
-      { name: "TensorFlow", icon: "🧠", desc: "ML Framework" },
-      { name: "OpenAI APIs", icon: "🤖", desc: "Generative AI" },
+      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", desc: "AI Language" },
+      { name: "TensorFlow", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg", desc: "ML Framework" },
+      { name: "OpenAI APIs", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/openai.svg", desc: "Generative AI" },
     ],
   },
   {
@@ -44,9 +45,9 @@ const techStack = [
     borderColor: "border-emerald-500/20",
     hoverBg: "hover:bg-emerald-500/5",
     techs: [
-      { name: "AWS", icon: "☁️", desc: "Cloud Platform" },
-      { name: "Firebase", icon: "🔥", desc: "Realtime Cloud" },
-      { name: "Vercel", icon: "▲", desc: "Edge Deployment" },
+      { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", desc: "Cloud Platform" },
+      { name: "Firebase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg", desc: "Realtime Cloud" },
+      { name: "Vercel", icon: "/vercel.svg", desc: "Edge Deployment" },
     ],
   },
 ];
@@ -119,10 +120,22 @@ export default function Technologies() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                     transition={{ delay: stackIndex * 0.1 + techIndex * 0.05 + 0.2 }}
-                    className={`flex items-center gap-3 p-3 rounded-xl ${stack.hoverBg} transition-colors duration-200 cursor-default border border-transparent hover:border-white/5`}
+                    className={`group relative flex items-center gap-3 p-3 rounded-xl ${stack.hoverBg} transition-colors duration-200 cursor-default border border-transparent hover:border-white/5 overflow-hidden`}
                   >
-                    <span className="text-xl flex-shrink-0">{tech.icon}</span>
-                    <div>
+                    {/* Magnetic Glow Effect */}
+                    <div className={`absolute inset-0 bg-gradient-to-r ${stack.color} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 z-0`} />
+                    
+                    <div className="relative w-6 h-6 flex-shrink-0 z-10 flex items-center justify-center">
+                      <Image 
+                        src={tech.icon} 
+                        alt={tech.name} 
+                        fill
+                        sizes="24px"
+                        className="object-contain transition-transform duration-300 group-hover:scale-110" 
+                        style={{ filter: ['Next.js', 'Vercel', 'OpenAI APIs', 'AWS'].includes(tech.name) ? 'brightness(0) invert(1)' : 'none' }}
+                      />
+                    </div>
+                    <div className="z-10 relative">
                       <div className="text-white text-sm font-semibold leading-none mb-0.5">
                         {tech.name}
                       </div>
@@ -130,6 +143,24 @@ export default function Technologies() {
                     </div>
                   </motion.div>
                 ))}
+
+                {/* Many More Item */}
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ delay: stackIndex * 0.1 + stack.techs.length * 0.05 + 0.2 }}
+                  className={`flex items-center gap-3 p-3 rounded-xl ${stack.hoverBg} transition-colors duration-200 cursor-default border border-transparent hover:border-white/5`}
+                >
+                  <div className="w-6 h-6 flex items-center justify-center flex-shrink-0 text-slate-400 bg-slate-800/50 rounded-full border border-slate-700/50">
+                    <span className="text-xs font-bold leading-none mb-1">+</span>
+                  </div>
+                  <div>
+                    <div className="text-slate-300 text-sm font-semibold leading-none mb-0.5">
+                      Many more...
+                    </div>
+                    <div className="text-slate-600 text-xs">Other modern tools</div>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           ))}

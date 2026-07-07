@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -42,10 +43,11 @@ export default function Navbar() {
             whileHover={{ scale: 1.02 }}
           >
             <div className="relative w-9 h-9 flex items-center justify-center">
-              <img
-                src="/logo.png"
+              <Image
+                src="/logo-darkmode.png"
                 alt="DeltaWaveX Logo"
-                className="w-full h-full object-contain filter brightness-[1.6] saturate-[1.5] transition-all duration-300 group-hover:filter-none group-hover:scale-105"
+                fill
+                className="object-contain transition-all duration-300 group-hover:scale-105"
               />
             </div>
             <span className="font-bold text-xl tracking-tight select-none">
