@@ -43,12 +43,12 @@ export default function Navbar() {
             whileHover={{ scale: 1.02 }}
           >
             <div className="relative w-9 h-9 flex items-center justify-center">
-              <Image
+              {/* <Image
                 src="/logo-darkmode.png"
                 alt="DeltaWaveX Logo"
                 fill
                 className="object-contain transition-all duration-300 group-hover:scale-105"
-              />
+              /> */}
             </div>
             <span className="font-bold text-xl tracking-tight select-none">
               <span className="text-white group-hover:text-[#444e58] transition-colors duration-300">DeltaWave</span>
