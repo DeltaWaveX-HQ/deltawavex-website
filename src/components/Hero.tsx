@@ -1,63 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Sparkles } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-
-const floatingCards = [
-  {
-    id: 1,
-    title: "Mobile App",
-    subtitle: "Flutter & React Native",
-    icon: "📱",
-    stat: "4.9★",
-    statLabel: "App Store",
-    bg: "rgba(37, 99, 235, 0.12)",
-    border: "rgba(37, 99, 235, 0.35)",
-    glow: "0 0 30px rgba(37, 99, 235, 0.3), 0 0 60px rgba(37, 99, 235, 0.12), 0 20px 40px rgba(0,0,0,0.4)",
-    position: "top-[16%] left-[4%]",
-    delay: 0,
-  },
-  {
-    id: 2,
-    title: "AI Solutions",
-    subtitle: "OpenAI & TensorFlow",
-    icon: "🤖",
-    stat: "99%",
-    statLabel: "Accuracy",
-    bg: "rgba(139, 92, 246, 0.12)",
-    border: "rgba(139, 92, 246, 0.35)",
-    glow: "0 0 30px rgba(139, 92, 246, 0.3), 0 0 60px rgba(139, 92, 246, 0.12), 0 20px 40px rgba(0,0,0,0.4)",
-    position: "top-[16%] right-[4%]",
-    delay: 0.6,
-  },
-  {
-    id: 3,
-    title: "SaaS Platform",
-    subtitle: "Scalable & Secure",
-    icon: "⚡",
-    stat: "99.9%",
-    statLabel: "Uptime",
-    bg: "rgba(6, 182, 212, 0.12)",
-    border: "rgba(6, 182, 212, 0.35)",
-    glow: "0 0 30px rgba(6, 182, 212, 0.3), 0 0 60px rgba(6, 182, 212, 0.12), 0 20px 40px rgba(0,0,0,0.4)",
-    position: "bottom-[26%] left-[3%]",
-    delay: 1.2,
-  },
-  {
-    id: 4,
-    title: "Cloud Native",
-    subtitle: "AWS & Firebase",
-    icon: "☁️",
-    stat: "<2s",
-    statLabel: "Load Time",
-    bg: "rgba(16, 185, 129, 0.12)",
-    border: "rgba(16, 185, 129, 0.35)",
-    glow: "0 0 30px rgba(16, 185, 129, 0.3), 0 0 60px rgba(16, 185, 129, 0.12), 0 20px 40px rgba(0,0,0,0.4)",
-    position: "bottom-[26%] right-[3%]",
-    delay: 1.8,
-  },
-];
+import { ArrowRight, Play, Sparkles, Code2, Smartphone, Brain, Layers } from "lucide-react";
 
 const techItems = [
   "React Native", "Next.js", "Flutter", "Node.js", "Python", "TensorFlow",
@@ -65,108 +9,12 @@ const techItems = [
   "OpenAI", "Stripe", "GraphQL", "TypeScript", "Prisma", "Redis",
 ];
 
-function FloatingCard({ card }: { card: (typeof floatingCards)[0] }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.8 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ delay: card.delay + 0.6, duration: 0.9, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className={`absolute ${card.position} hidden xl:block z-20`}
-    >
-      <motion.div
-        animate={{ y: [0, -16, 0] }}
-        transition={{
-          duration: 5 + card.delay * 0.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: card.delay * 0.3,
-        }}
-      >
-        <div
-          className="relative rounded-2xl p-5 w-52 overflow-hidden"
-          style={{
-            background: card.bg,
-            border: `1px solid ${card.border}`,
-            boxShadow: card.glow,
-            backdropFilter: "blur(30px)",
-            WebkitBackdropFilter: "blur(30px)",
-          }}
-        >
-          {/* Top highlight line */}
-          <div
-            className="absolute top-0 left-4 right-4 h-px"
-            style={{ background: `linear-gradient(90deg, transparent, ${card.border}, transparent)` }}
-          />
-          {/* Inner gradient highlight */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 60%)",
-            }}
-          />
-
-          <div className="relative z-10">
-            <div className="text-3xl mb-3 drop-shadow-sm">{card.icon}</div>
-            <div className="text-white font-bold text-sm mb-0.5">{card.title}</div>
-            <div className="text-slate-400 text-xs mb-4">{card.subtitle}</div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="relative">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <div
-                    className="absolute inset-0 w-2 h-2 rounded-full bg-emerald-400 opacity-60"
-                    style={{ animation: "pulse-ring 2s ease-out infinite" }}
-                  />
-                </div>
-                <span className="text-emerald-400 text-xs font-semibold">Live</span>
-              </div>
-              <div className="text-right">
-                <div className="text-white font-black text-sm">{card.stat}</div>
-                <div className="text-slate-500 text-[10px] mt-0.5">{card.statLabel}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          let start = 0;
-          const increment = target / 60;
-          const timer = setInterval(() => {
-            start += increment;
-            if (start >= target) {
-              setCount(target);
-              clearInterval(timer);
-            } else {
-              setCount(Math.floor(start));
-            }
-          }, 20);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
-  );
-}
+const serviceHighlights = [
+  { icon: Code2, label: "Custom Software" },
+  { icon: Smartphone, label: "Mobile & Web Apps" },
+  { icon: Brain, label: "AI-Powered Solutions" },
+  { icon: Layers, label: "End-to-End Development" },
+];
 
 export default function Hero() {
   return (
@@ -176,38 +24,61 @@ export default function Hero() {
     >
       {/* ======================== BACKGROUND ======================== */}
 
-      {/* Multi-color gradient base */}
+      {/* Base gradient — centered behind headline */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 20% 10%, rgba(37, 99, 235, 0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 10%, rgba(139, 92, 246, 0.18) 0%, transparent 60%), radial-gradient(ellipse 70% 50% at 50% 90%, rgba(6, 182, 212, 0.12) 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 50% at 50% 45%, rgba(37, 99, 235, 0.14) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 55% 40%, rgba(139, 92, 246, 0.12) 0%, transparent 65%), radial-gradient(ellipse 60% 40% at 45% 55%, rgba(6, 182, 212, 0.08) 0%, transparent 60%)",
         }}
       />
 
-      {/* Large animated orbs */}
+      {/* Aurora — soft animated gradient sweep */}
       <motion.div
-        animate={{ scale: [1, 1.25, 1], opacity: [0.35, 0.55, 0.35] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-80 -left-80 w-[1100px] h-[1100px] rounded-full blur-[180px]"
-        style={{ background: "rgba(37, 99, 235, 0.2)" }}
-      />
-      <motion.div
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.25, 0.45, 0.25] }}
-        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-        className="absolute -top-60 -right-80 w-[900px] h-[900px] rounded-full blur-[160px]"
-        style={{ background: "rgba(139, 92, 246, 0.2)" }}
-      />
-      <motion.div
-        animate={{ scale: [1, 1.4, 1], opacity: [0.15, 0.3, 0.15] }}
-        transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 6 }}
-        className="absolute -bottom-80 left-1/4 w-[800px] h-[800px] rounded-full blur-[150px]"
-        style={{ background: "rgba(6, 182, 212, 0.15)" }}
+        animate={{ rotate: [0, 360] }}
+        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[1400px] pointer-events-none"
+        style={{
+          background:
+            "conic-gradient(from 0deg, rgba(37, 99, 235, 0.08), transparent, rgba(139, 92, 246, 0.06), transparent, rgba(6, 182, 212, 0.06), transparent, rgba(37, 99, 235, 0.08))",
+          filter: "blur(120px)",
+        }}
       />
 
-      {/* === 3D PERSPECTIVE GRID FLOOR === */}
+      {/* Headline glow — focused blue-purple glow behind text */}
+      <motion.div
+        animate={{ opacity: [0.4, 0.65, 0.4], scale: [0.98, 1.02, 0.98] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse, rgba(37, 99, 235, 0.18) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 70%)",
+          filter: "blur(80px)",
+        }}
+      />
+
+      {/* Slow breathing orbs */}
+      <motion.div
+        animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.22, 0.12] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -top-40 -left-40 w-[800px] h-[800px] rounded-full blur-[180px] pointer-events-none"
+        style={{ background: "rgba(37, 99, 235, 0.15)" }}
+      />
+      <motion.div
+        animate={{ scale: [1.1, 1, 1.1], opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        className="absolute -top-20 -right-40 w-[700px] h-[700px] rounded-full blur-[160px] pointer-events-none"
+        style={{ background: "rgba(139, 92, 246, 0.12)" }}
+      />
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.16, 0.08] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 8 }}
+        className="absolute -bottom-40 left-1/3 w-[600px] h-[600px] rounded-full blur-[150px] pointer-events-none"
+        style={{ background: "rgba(6, 182, 212, 0.1)" }}
+      />
+
+      {/* Subtle grid floor */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute bottom-0 left-0 right-0 h-[60%]">
+        <div className="absolute bottom-0 left-0 right-0 h-[50%]">
           <div
             style={{
               position: "absolute",
@@ -216,40 +87,39 @@ export default function Hero() {
               right: "-30%",
               height: "100%",
               backgroundImage: `
-                linear-gradient(rgba(37, 99, 235, 0.2) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(37, 99, 235, 0.2) 1px, transparent 1px)
+                linear-gradient(rgba(37, 99, 235, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37, 99, 235, 0.07) 1px, transparent 1px)
               `,
-              backgroundSize: "70px 70px",
+              backgroundSize: "80px 80px",
               transform: "perspective(500px) rotateX(73deg)",
               transformOrigin: "center bottom",
               maskImage:
-                "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%)",
+                "linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 40%, transparent 100%)",
               WebkitMaskImage:
-                "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%)",
+                "linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 40%, transparent 100%)",
             }}
-          />
-          {/* Grid center glow */}
-          <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] blur-3xl"
-            style={{ background: "rgba(37, 99, 235, 0.08)" }}
           />
         </div>
       </div>
 
-      {/* Scattered bright dots */}
+      {/* Floating particles */}
       {[
-        { x: "15%", y: "25%", size: 3, color: "rgba(96, 165, 250, 0.6)", delay: 0 },
-        { x: "85%", y: "30%", size: 2, color: "rgba(192, 132, 252, 0.6)", delay: 1 },
-        { x: "10%", y: "65%", size: 2, color: "rgba(6, 182, 212, 0.5)", delay: 2 },
-        { x: "90%", y: "60%", size: 3, color: "rgba(96, 165, 250, 0.5)", delay: 0.5 },
-        { x: "50%", y: "15%", size: 2, color: "rgba(192, 132, 252, 0.4)", delay: 1.5 },
-        { x: "30%", y: "80%", size: 2, color: "rgba(6, 182, 212, 0.4)", delay: 2.5 },
-        { x: "72%", y: "75%", size: 2, color: "rgba(96, 165, 250, 0.4)", delay: 0.8 },
+        { x: "12%", y: "22%", size: 2, color: "rgba(96, 165, 250, 0.5)", delay: 0 },
+        { x: "88%", y: "28%", size: 2, color: "rgba(192, 132, 252, 0.45)", delay: 1.2 },
+        { x: "8%", y: "68%", size: 1.5, color: "rgba(6, 182, 212, 0.4)", delay: 2.4 },
+        { x: "92%", y: "62%", size: 2, color: "rgba(96, 165, 250, 0.35)", delay: 0.6 },
+        { x: "25%", y: "12%", size: 1.5, color: "rgba(192, 132, 252, 0.35)", delay: 1.8 },
+        { x: "75%", y: "15%", size: 1.5, color: "rgba(37, 99, 235, 0.4)", delay: 3 },
+        { x: "35%", y: "78%", size: 1.5, color: "rgba(6, 182, 212, 0.3)", delay: 2 },
+        { x: "65%", y: "82%", size: 2, color: "rgba(96, 165, 250, 0.3)", delay: 0.8 },
+        { x: "50%", y: "8%", size: 1.5, color: "rgba(139, 92, 246, 0.35)", delay: 1.5 },
+        { x: "18%", y: "45%", size: 1.5, color: "rgba(6, 182, 212, 0.3)", delay: 3.5 },
+        { x: "82%", y: "48%", size: 1.5, color: "rgba(139, 92, 246, 0.3)", delay: 2.8 },
       ].map((dot, i) => (
         <motion.div
           key={i}
-          animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
-          transition={{ duration: 3 + dot.delay, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
+          animate={{ opacity: [0.2, 0.8, 0.2], scale: [0.8, 1.3, 0.8] }}
+          transition={{ duration: 4 + dot.delay, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
           className="absolute rounded-full pointer-events-none"
           style={{
             left: dot.x,
@@ -257,29 +127,24 @@ export default function Hero() {
             width: dot.size,
             height: dot.size,
             background: dot.color,
-            boxShadow: `0 0 ${dot.size * 4}px ${dot.color}`,
+            boxShadow: `0 0 ${dot.size * 6}px ${dot.color}`,
           }}
         />
       ))}
 
-      {/* ======================== FLOATING CARDS ======================== */}
-      {floatingCards.map((card) => (
-        <FloatingCard key={card.id} card={card} />
-      ))}
-
       {/* ======================== MAIN CONTENT ======================== */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 text-center pt-32 pb-48">
+      <div className="relative z-10 max-w-[1100px] mx-auto px-6 lg:px-8 text-center pt-40 pb-56">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full mb-8"
+          className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full mb-14"
           style={{
             background: "rgba(37, 99, 235, 0.08)",
-            border: "1px solid rgba(37, 99, 235, 0.3)",
+            border: "1px solid rgba(37, 99, 235, 0.25)",
             boxShadow:
-              "0 0 30px rgba(37, 99, 235, 0.15), 0 0 60px rgba(37, 99, 235, 0.05), inset 0 1px 0 rgba(255,255,255,0.05)",
+              "0 0 25px rgba(37, 99, 235, 0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
           <Sparkles className="w-3.5 h-3.5 text-blue-400" />
@@ -292,14 +157,14 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* HEADLINE — Massive & Bold */}
+        {/* HEADLINE */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+          transition={{ duration: 0.9, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] as const }}
         >
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-[90px] font-black tracking-tight text-white leading-[1.02] mb-6">
-            Building{" "}
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] font-black tracking-tight text-white leading-[1.08] mb-10">
+            We Build{" "}
             <span
               style={{
                 background:
@@ -309,10 +174,10 @@ export default function Hero() {
                 backgroundClip: "text",
               }}
             >
-              Products
+              Software
             </span>
             <br />
-            <span className="text-white">That </span>
+            <span className="text-white">That Grows </span>
             <span
               style={{
                 background: "linear-gradient(135deg, #3B82F6 0%, #06B6D4 45%, #8B5CF6 100%)",
@@ -321,7 +186,7 @@ export default function Hero() {
                 backgroundClip: "text",
               }}
             >
-              Scale
+              Businesses
             </span>
           </h1>
         </motion.div>
@@ -331,10 +196,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10"
+          className="text-lg sm:text-xl text-slate-400 max-w-[680px] mx-auto leading-relaxed mb-16"
         >
-          We transform ideas into powerful digital products — mobile apps, web
-          platforms, AI solutions, and SaaS systems built for the future.
+          We design and develop high-performance mobile apps, web platforms,
+          AI-powered solutions, and scalable SaaS products that help businesses
+          launch faster and grow smarter.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -342,7 +208,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
         >
           <motion.a
             href="#contact"
@@ -363,7 +229,7 @@ export default function Hero() {
               className="absolute inset-y-0 w-1/3 skew-x-12"
               style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)" }}
             />
-            <span className="relative">Start Your Project</span>
+            <span className="relative">Book a Free Consultation</span>
             <ArrowRight className="w-4 h-4 relative" />
           </motion.a>
 
@@ -385,34 +251,22 @@ export default function Hero() {
           </motion.a>
         </motion.div>
 
-        {/* Stats */}
+        {/* Service Highlights */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl mx-auto"
+          className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4"
         >
-          {[
-            { value: 3, suffix: "+", label: "Products Built" },
-            { value: 100, suffix: "%", label: "Custom Code" },
-            { value: 10, suffix: "+", label: "Technologies" },
-            { value: 24, suffix: "/7", label: "Support" },
-          ].map((stat, i) => (
-            <div key={i} className="text-center group">
-              <div
-                className="text-3xl sm:text-4xl font-black mb-1"
-                style={{
-                  background: "linear-gradient(135deg, #60A5FA 0%, #06B6D4 50%, #818CF8 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+          {serviceHighlights.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <div key={i} className="flex items-center gap-2.5">
+                <Icon className="w-4 h-4 text-blue-400/80" />
+                <span className="text-slate-400 text-sm font-medium">{item.label}</span>
               </div>
-              <div className="text-xs text-slate-500 font-medium tracking-wide">{stat.label}</div>
-            </div>
-          ))}
+            );
+          })}
         </motion.div>
       </div>
 
@@ -421,38 +275,61 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.8 }}
-        className="absolute bottom-24 left-0 right-0 overflow-hidden z-10"
-        style={{
-          maskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
-        }}
+        className="absolute bottom-16 left-0 right-0 overflow-hidden z-10"
       >
-        {/* Divider lines */}
-        <div className="w-full h-px mb-3" style={{ background: "linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.2), transparent)" }} />
-        <div className="flex" style={{ width: "max-content" }}>
-          <div className="flex items-center gap-8 animate-marquee whitespace-nowrap pr-8">
-            {[...techItems, ...techItems].map((item, i) => (
-              <div key={i} className="flex items-center gap-8 shrink-0">
-                <span className="text-slate-600 text-[11px] font-semibold tracking-[0.15em] uppercase">
-                  {item}
-                </span>
-                <div className="w-1 h-1 rounded-full bg-slate-700 flex-shrink-0" />
-              </div>
-            ))}
+        {/* Section heading */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6, duration: 0.6 }}
+          className="text-center text-slate-600 text-xs font-semibold tracking-[0.2em] uppercase mb-5"
+        >
+          Technologies We Build With
+        </motion.p>
+
+        <div
+          style={{
+            maskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
+          }}
+        >
+          {/* Divider lines */}
+          <div className="w-full h-px mb-4" style={{ background: "linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.25), transparent)" }} />
+          <div className="flex" style={{ width: "max-content" }}>
+            <div className="flex items-center gap-10 animate-marquee whitespace-nowrap pr-10">
+              {[...techItems, ...techItems].map((item, i) => (
+                <div key={i} className="flex items-center gap-10 shrink-0">
+                  <span className="text-slate-500 text-xs font-semibold tracking-[0.15em] uppercase">
+                    {item}
+                  </span>
+                  <div className="w-1 h-1 rounded-full bg-slate-600 flex-shrink-0" />
+                </div>
+              ))}
+            </div>
           </div>
+          <div className="w-full h-px mt-4" style={{ background: "linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.25), transparent)" }} />
         </div>
-        <div className="w-full h-px mt-3" style={{ background: "linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.2), transparent)" }} />
+
+        {/* Trust statement */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8, duration: 0.6 }}
+          className="text-center text-slate-600 text-[13px] font-medium mt-5"
+        >
+          Helping startups and businesses build scalable digital products.
+        </motion.p>
       </motion.div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20"
+        transition={{ delay: 2 }}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

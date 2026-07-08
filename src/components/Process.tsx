@@ -197,32 +197,31 @@ export default function Process() {
         {/* Background gradient */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_0%,rgba(15,23,42,0)_0%,rgba(2,6,23,1)_100%)] pointer-events-none" />
 
-        {/* Pinned Header Text */}
-        <div className="absolute top-0 left-0 right-0 z-30 pt-20 lg:pt-24 text-center px-6 pointer-events-none">
-          <span className="inline-block text-sm font-semibold text-emerald-400 tracking-widest uppercase mb-4">
-            How We Work
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-            Our <span className="gradient-text">Development Process</span>
-          </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            A proven, transparent 7-step process that takes your idea from concept to a live, scaling product.
-          </p>
-        </div>
+
+
 
         {/* Masked Area for Scrolling Timeline */}
         <div 
           className="absolute inset-0 z-10 pointer-events-none"
-          style={{
-            maskImage: "linear-gradient(to bottom, transparent 0%, transparent 15vh, black 25vh, black 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, transparent 15vh, black 25vh, black 100%)"
-          }}
         >
           {/* Scrolling Timeline Wrapper */}
           <motion.div
             style={{ y }}
-            className="absolute top-[60vh] left-0 right-0 w-full pointer-events-auto"
+            className="absolute top-[3vh] left-0 right-0 w-full pointer-events-auto"
           >
+          {/* Section Header — scrolls with the timeline */}
+          <div className="text-center px-6 mb-16">
+            <span className="inline-block text-sm font-semibold text-emerald-400 tracking-widest uppercase mb-4">
+              How We Work
+            </span>
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+              Our <span className="gradient-text">Development Process</span>
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              A proven, transparent 7-step process that takes your idea from concept to a live, scaling product.
+            </p>
+          </div>
+
           <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
             {/* Vertical line */}
             <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/50 via-purple-500/30 to-transparent" />

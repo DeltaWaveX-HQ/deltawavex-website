@@ -7,10 +7,10 @@ import Image from "next/image";
 
 const navLinks = [
   { label: "Services", href: "#services" },
+  { label: "Portfolio", href: "#technologies" },
   { label: "Products", href: "#products" },
-  { label: "Technologies", href: "#technologies" },
   { label: "Process", href: "#process" },
-  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -75,7 +75,7 @@ export default function Navbar() {
               href="#contact"
               className="px-5 py-2.5 text-sm font-semibold text-white rounded-xl gradient-bg hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-blue-500/20"
             >
-              Start Your Project
+              Book a Free Consultation
             </a>
           </div>
 
@@ -117,7 +117,7 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="mt-2 px-5 py-3 text-center font-semibold text-white rounded-xl gradient-bg"
               >
-                Start Your Project
+                Book a Free Consultation
               </a>
             </div>
           </motion.div>

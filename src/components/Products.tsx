@@ -65,7 +65,7 @@ export default function Products() {
   return (
     <section
       id="products"
-      className="py-24 lg:py-32 bg-slate-950 relative overflow-hidden"
+      className="pt-8 pb-[10vh] lg:pt-12 lg:pb-32 bg-slate-950 relative overflow-hidden"
     >
       {/* Large background glow */}
       <div
