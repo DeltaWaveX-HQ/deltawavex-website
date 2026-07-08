@@ -57,7 +57,7 @@ export default function Testimonials() {
     <section className="py-24 lg:py-32 bg-slate-950 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-blue-600/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(37, 99, 235, 0.05) 0%, transparent 70%)" }} />
       </div>
 
       <div className="max-w-5xl mx-auto px-6 lg:px-8">

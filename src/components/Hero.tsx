@@ -41,7 +41,6 @@ export default function Hero() {
         style={{
           background:
             "conic-gradient(from 0deg, rgba(37, 99, 235, 0.08), transparent, rgba(139, 92, 246, 0.06), transparent, rgba(6, 182, 212, 0.06), transparent, rgba(37, 99, 235, 0.08))",
-          filter: "blur(120px)",
         }}
       />
 
@@ -52,7 +51,6 @@ export default function Hero() {
         className="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full pointer-events-none"
         style={{
           background: "radial-gradient(ellipse, rgba(37, 99, 235, 0.18) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 70%)",
-          filter: "blur(80px)",
         }}
       />
 
@@ -60,20 +58,20 @@ export default function Hero() {
       <motion.div
         animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.22, 0.12] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-40 -left-40 w-[800px] h-[800px] rounded-full blur-[180px] pointer-events-none"
-        style={{ background: "rgba(37, 99, 235, 0.15)" }}
+        className="absolute -top-40 -left-40 w-[800px] h-[800px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%)" }}
       />
       <motion.div
         animate={{ scale: [1.1, 1, 1.1], opacity: [0.1, 0.2, 0.1] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-        className="absolute -top-20 -right-40 w-[700px] h-[700px] rounded-full blur-[160px] pointer-events-none"
-        style={{ background: "rgba(139, 92, 246, 0.12)" }}
+        className="absolute -top-20 -right-40 w-[700px] h-[700px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%)" }}
       />
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.16, 0.08] }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 8 }}
-        className="absolute -bottom-40 left-1/3 w-[600px] h-[600px] rounded-full blur-[150px] pointer-events-none"
-        style={{ background: "rgba(6, 182, 212, 0.1)" }}
+        className="absolute -bottom-40 left-1/3 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%)" }}
       />
 
       {/* Subtle grid floor */}

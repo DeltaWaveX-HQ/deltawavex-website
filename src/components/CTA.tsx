@@ -33,15 +33,17 @@ export default function CTA() {
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.55, 0.3] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[120px] pointer-events-none"
-        style={{ background: "rgba(37, 99, 235, 0.18)" }}
-      />
+        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%)",
+        }}/>
       <motion.div
         animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.45, 0.2] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none"
-        style={{ background: "rgba(139, 92, 246, 0.18)" }}
-      />
+        className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
+        }}/>
 
       {/* 3D Perspective grid at top */}
       <div className="absolute top-0 left-0 right-0 h-[40%] overflow-hidden pointer-events-none" style={{ transform: "scaleY(-1)" }}>

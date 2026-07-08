@@ -206,8 +206,8 @@ export default function Services() {
       />
       {/* Section glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-[120px] pointer-events-none"
-        style={{ background: "rgba(37, 99, 235, 0.06)" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse, rgba(37, 99, 235, 0.06) 0%, transparent 70%)" }}
       />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

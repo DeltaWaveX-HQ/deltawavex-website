@@ -63,8 +63,8 @@ export default function WhyUs() {
   return (
     <section id="about" className="py-24 lg:py-32 bg-slate-900/50 relative overflow-hidden">
       {/* Background accent */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, transparent 70%)" }} />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(147, 51, 234, 0.05) 0%, transparent 70%)" }} />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}

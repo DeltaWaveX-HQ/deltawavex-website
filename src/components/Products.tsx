@@ -69,7 +69,7 @@ export default function Products() {
     >
       {/* Large background glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] blur-[150px] pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] pointer-events-none"
         style={{ background: "radial-gradient(ellipse, rgba(37, 99, 235, 0.08) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 100%)" }}
       />
 

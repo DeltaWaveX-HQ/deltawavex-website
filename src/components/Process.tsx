@@ -71,7 +71,7 @@ function StepVisual({ color, Icon }: { color: string; Icon: any }) {
       <motion.div 
         animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className={`absolute w-32 h-32 rounded-full bg-gradient-to-br ${color} blur-2xl opacity-30`}
+        className={`absolute w-32 h-32 rounded-full bg-gradient-to-br ${color} opacity-40 pointer-events-none`} style={{ maskImage: `radial-gradient(circle, black 0%, transparent 70%)`, WebkitMaskImage: `radial-gradient(circle, black 0%, transparent 70%)` }}
       />
       
       {/* Floating Icon Glass Card */}
