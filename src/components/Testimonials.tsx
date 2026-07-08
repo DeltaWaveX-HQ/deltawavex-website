@@ -54,7 +54,7 @@ export default function Testimonials() {
   const t = testimonials[current];
 
   return (
-    <section className="py-24 lg:py-32 bg-slate-950 relative overflow-hidden">
+    <section className="py-24 lg:py-32 bg-slate-50 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(37, 99, 235, 0.05) 0%, transparent 70%)" }} />
@@ -72,7 +72,7 @@ export default function Testimonials() {
           <span className="inline-block text-sm font-semibold text-amber-400 tracking-widest uppercase mb-4">
             Client Stories
           </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
             Trusted by{" "}
             <span className="gradient-text">Founders & Teams</span>
           </h2>
@@ -86,7 +86,7 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          <div className="bg-slate-900/60 border border-white/5 rounded-3xl p-8 lg:p-12 relative overflow-hidden">
+          <div className="bg-white border border-slate-200 rounded-3xl p-8 lg:p-12 relative overflow-hidden shadow-xl">
             {/* Quote icon */}
             <div className="absolute top-8 right-8 opacity-10">
               <Quote className="w-16 h-16 text-blue-400" />
@@ -111,7 +111,7 @@ export default function Testimonials() {
                 </div>
 
                 {/* Quote */}
-                <p className="text-slate-200 text-lg lg:text-xl leading-relaxed mb-8 font-light">
+                <p className="text-slate-700 text-lg lg:text-xl leading-relaxed mb-8 font-light">
                   &ldquo;{t.text}&rdquo;
                 </p>
 
@@ -123,8 +123,8 @@ export default function Testimonials() {
                     {t.avatar}
                   </div>
                   <div>
-                    <div className="text-white font-semibold">{t.name}</div>
-                    <div className="text-slate-400 text-sm">{t.role}</div>
+                    <div className="text-slate-900 font-semibold">{t.name}</div>
+                    <div className="text-slate-600 text-sm">{t.role}</div>
                     <div className="text-slate-500 text-xs">{t.company}</div>
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export default function Testimonials() {
               id="testimonial-prev"
               onClick={prev}
               aria-label="Previous testimonial"
-              className="p-3 rounded-full border border-white/10 text-slate-400 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-200"
+              className="p-3 rounded-full border border-slate-200 bg-white shadow-sm text-slate-400 hover:text-slate-900 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -153,8 +153,8 @@ export default function Testimonials() {
                   aria-label={`Go to testimonial ${i + 1}`}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     i === current
-                      ? "w-6 bg-blue-500"
-                      : "w-2 bg-white/20 hover:bg-white/40"
+                      ? "w-6 bg-blue-600"
+                      : "w-2 bg-slate-300 hover:bg-slate-400"
                   }`}
                 />
               ))}
@@ -164,7 +164,7 @@ export default function Testimonials() {
               id="testimonial-next"
               onClick={next}
               aria-label="Next testimonial"
-              className="p-3 rounded-full border border-white/10 text-slate-400 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-200"
+              className="p-3 rounded-full border border-slate-200 bg-white shadow-sm text-slate-400 hover:text-slate-900 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

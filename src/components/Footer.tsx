@@ -54,9 +54,9 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-slate-50 border-t border-slate-200 relative overflow-hidden">
       {/* Top fade from CTA */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/10 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-12">
@@ -72,18 +72,18 @@ export default function Footer() {
                 <img
                   src="/logo.png"
                   alt="DeltaWaveX Logo"
-                  className="w-full h-full object-contain filter brightness-[1.6] saturate-[1.5] transition-all duration-300 group-hover:filter-none group-hover:scale-105"
+                  className="w-full h-full object-contain filter brightness-0 transition-all duration-300 group-hover:scale-105"
                 />
               </div>
               <span className="font-bold text-xl tracking-tight select-none">
-                <span className="text-white group-hover:text-[#444e58] transition-colors duration-300">DeltaWave</span>
-                <span className="text-emerald-400 group-hover:text-[#235633] transition-colors duration-300">X</span>
+                <span className="text-slate-900 group-hover:text-blue-600 transition-colors duration-300">DeltaWave</span>
+                <span className="text-emerald-600 group-hover:text-emerald-500 transition-colors duration-300">X</span>
               </span>
             </motion.div>
-            <p className="text-slate-500 text-sm leading-relaxed max-w-xs mb-6">
+            <p className="text-slate-600 text-sm leading-relaxed max-w-xs mb-6">
               Building products that scale. We are a premium technology company and product studio helping startups and businesses build world-class digital products.
             </p>
-            <p className="text-slate-600 text-sm font-medium mb-5">Building Products That Scale</p>
+            <p className="text-slate-700 text-sm font-medium mb-5">Building Products That Scale</p>
 
             {/* Socials */}
             <div className="flex gap-3">
@@ -93,7 +93,7 @@ export default function Footer() {
                   href={href}
                   aria-label={label}
                   id={`footer-social-${label.toLowerCase()}`}
-                  className="p-2.5 rounded-xl border border-white/5 text-slate-400 hover:text-white hover:border-white/10 hover:bg-white/5 transition-all duration-200"
+                  className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-500 hover:text-slate-900 hover:border-slate-300 hover:bg-slate-100 transition-all duration-200 shadow-sm"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -104,13 +104,13 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="text-white font-semibold text-sm mb-4 tracking-wide">{category}</h4>
+              <h4 className="text-slate-900 font-semibold text-sm mb-4 tracking-wide">{category}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200"
+                      className="text-slate-600 hover:text-slate-900 text-sm transition-colors duration-200"
                     >
                       {link.label}
                     </a>
@@ -122,8 +122,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-slate-600 text-sm">
+        <div className="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-slate-500 text-sm">
             © {new Date().getFullYear()} Delta Wave X. All rights reserved.
           </p>
           <div className="flex gap-6">
@@ -131,7 +131,7 @@ export default function Footer() {
               <a
                 key={item}
                 href="#"
-                className="text-slate-600 hover:text-slate-400 text-sm transition-colors duration-200"
+                className="text-slate-500 hover:text-slate-900 text-sm transition-colors duration-200"
               >
                 {item}
               </a>

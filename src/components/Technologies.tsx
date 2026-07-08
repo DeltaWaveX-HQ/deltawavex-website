@@ -60,13 +60,13 @@ export default function Technologies() {
   return (
     <section
       id="technologies"
-      className="pt-8 pb-10 lg:pt-12 lg:pb-32 bg-slate-900/50 relative overflow-hidden"
+      className="pt-8 pb-10 lg:pt-12 lg:pb-32 bg-white relative overflow-hidden"
     >
       {/* Background grid */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
         }}
       />
@@ -80,14 +80,14 @@ export default function Technologies() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-sm font-semibold text-cyan-400 tracking-widest uppercase mb-4">
+          <span className="inline-block text-sm font-semibold text-cyan-600 tracking-widest uppercase mb-4">
             Tech Stack
           </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
             Powered by{" "}
             <span className="gradient-text">Modern Technologies</span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
             We leverage the best tools in the industry to deliver fast, scalable, and maintainable software.
           </p>
         </motion.div>
@@ -100,7 +100,7 @@ export default function Technologies() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: stackIndex * 0.1 }}
-              className={`bg-slate-900/60 border ${stack.borderColor} rounded-2xl p-6 hover:bg-slate-900/80 transition-all duration-300`}
+              className={`bg-slate-50 border ${stack.borderColor} rounded-2xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
               onMouseEnter={() => setActiveCategory(stack.category)}
               onMouseLeave={() => setActiveCategory(null)}
             >
@@ -120,7 +120,7 @@ export default function Technologies() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                     transition={{ delay: stackIndex * 0.1 + techIndex * 0.05 + 0.2 }}
-                    className={`group relative flex items-center gap-3 p-3 rounded-xl ${stack.hoverBg} transition-colors duration-200 cursor-default border border-transparent hover:border-white/5 overflow-hidden`}
+                    className={`group relative flex items-center gap-3 p-3 rounded-xl ${stack.hoverBg} transition-colors duration-200 cursor-default border border-transparent hover:border-slate-200 overflow-hidden`}
                   >
                     {/* Magnetic Glow Effect */}
                     <div className={`absolute inset-0 bg-gradient-to-r ${stack.color} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 z-0`} />
@@ -132,11 +132,11 @@ export default function Technologies() {
                         fill
                         sizes="24px"
                         className="object-contain transition-transform duration-300 group-hover:scale-110" 
-                        style={{ filter: ['Next.js', 'Vercel', 'OpenAI APIs', 'AWS'].includes(tech.name) ? 'brightness(0) invert(1)' : 'none' }}
+                        style={{ filter: ['Next.js', 'Vercel', 'OpenAI APIs', 'AWS'].includes(tech.name) ? 'brightness(0)' : 'none' }}
                       />
                     </div>
                     <div className="z-10 relative">
-                      <div className="text-white text-sm font-semibold leading-none mb-0.5">
+                      <div className="text-slate-900 text-sm font-semibold leading-none mb-0.5">
                         {tech.name}
                       </div>
                       <div className="text-slate-500 text-xs">{tech.desc}</div>
@@ -149,13 +149,13 @@ export default function Technologies() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                   transition={{ delay: stackIndex * 0.1 + stack.techs.length * 0.05 + 0.2 }}
-                  className={`flex items-center gap-3 p-3 rounded-xl ${stack.hoverBg} transition-colors duration-200 cursor-default border border-transparent hover:border-white/5`}
+                  className={`flex items-center gap-3 p-3 rounded-xl ${stack.hoverBg} transition-colors duration-200 cursor-default border border-transparent hover:border-slate-200`}
                 >
-                  <div className="w-6 h-6 flex items-center justify-center flex-shrink-0 text-slate-400 bg-slate-800/50 rounded-full border border-slate-700/50">
+                  <div className="w-6 h-6 flex items-center justify-center flex-shrink-0 text-slate-500 bg-slate-100 rounded-full border border-slate-200">
                     <span className="text-xs font-bold leading-none mb-1">+</span>
                   </div>
                   <div>
-                    <div className="text-slate-300 text-sm font-semibold leading-none mb-0.5">
+                    <div className="text-slate-700 text-sm font-semibold leading-none mb-0.5">
                       Many more...
                     </div>
                     <div className="text-slate-600 text-xs">Other modern tools</div>

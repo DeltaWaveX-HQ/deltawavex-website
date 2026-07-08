@@ -18,7 +18,7 @@ export default function CTA() {
   return (
     <section
       id="contact"
-      className="py-24 lg:py-32 bg-black relative overflow-hidden"
+      className="py-24 lg:py-32 bg-white relative overflow-hidden"
     >
       {/* Background layers */}
       <div
@@ -92,19 +92,19 @@ export default function CTA() {
                 <div className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
                 <div className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </div>
-              <span className="text-emerald-400 text-sm font-semibold">
+              <span className="text-emerald-700 text-sm font-semibold">
                 Currently Accepting Projects
               </span>
             </div>
 
             {/* Headline */}
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-6">
               Let&apos;s Build Something{" "}
               <span className="gradient-text">Extraordinary</span>
             </h2>
 
             {/* Subheadline */}
-            <p className="text-lg text-slate-400 max-w-xl leading-relaxed mb-10">
+            <p className="text-lg text-slate-600 max-w-xl leading-relaxed mb-10">
               Whether you&apos;re launching a startup, scaling a business, or
               building the next big product — Delta Wave X is ready to help you
               make it a reality.
@@ -120,7 +120,7 @@ export default function CTA() {
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <Sparkles className="w-4 h-4 text-emerald-400" />
-                  <span className="text-slate-300 text-sm font-medium">{item}</span>
+                  <span className="text-slate-700 text-sm font-medium">{item}</span>
                 </div>
               ))}
             </div>
@@ -132,9 +132,9 @@ export default function CTA() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="glass-card p-8 lg:p-10 rounded-3xl"
+            className="bg-white border border-slate-200 shadow-xl p-8 lg:p-10 rounded-3xl"
           >
-            <h3 className="text-2xl font-bold text-white mb-8">Get In Touch</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-8">Get In Touch</h3>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {/* Name */}
@@ -146,7 +146,7 @@ export default function CTA() {
                     type="text"
                     required
                     placeholder="Full Name"
-                    className="w-full bg-slate-900/50 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3.5 pl-12 pr-4 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
                   />
                 </div>
 
@@ -159,7 +159,7 @@ export default function CTA() {
                     type="tel"
                     required
                     placeholder="Phone Number"
-                    className="w-full bg-slate-900/50 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3.5 pl-12 pr-4 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
                   />
                 </div>
               </div>
@@ -185,7 +185,7 @@ export default function CTA() {
                 <select
                   required
                   defaultValue=""
-                  className="w-full bg-slate-900/50 border border-slate-800 rounded-xl py-3.5 pl-12 pr-10 text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3.5 pl-12 pr-10 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer"
                   style={{ backgroundImage: 'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem top 50%', backgroundSize: '0.65rem auto' }}
                 >
                   <option value="" disabled>Select Software Type</option>
@@ -206,7 +206,7 @@ export default function CTA() {
                   required
                   rows={4}
                   placeholder="Project Details & Requirements..."
-                  className="w-full bg-slate-900/50 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all resize-none"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3.5 pl-12 pr-4 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all resize-none"
                 />
               </div>
 
@@ -221,19 +221,19 @@ export default function CTA() {
                 />
                 <label
                   htmlFor="file-upload"
-                  className="w-full flex items-center justify-between bg-slate-900/50 border border-slate-800 border-dashed rounded-xl py-3 px-4 cursor-pointer hover:border-blue-500/50 hover:bg-slate-800/50 transition-all group-focus-within:ring-2 ring-blue-500/50"
+                  className="w-full flex items-center justify-between bg-slate-50 border border-slate-200 border-dashed rounded-xl py-3 px-4 cursor-pointer hover:border-blue-500/50 hover:bg-white transition-all group-focus-within:ring-2 ring-blue-500/50"
                 >
                   <div className="flex items-center gap-3 overflow-hidden">
                     <Paperclip className="w-5 h-5 text-slate-500 group-hover:text-blue-400 transition-colors flex-shrink-0" />
-                    <span className="text-slate-400 truncate text-sm">
+                    <span className="text-slate-600 truncate text-sm">
                       {fileName ? (
-                        <span className="text-white font-medium">{fileName}</span>
+                        <span className="text-slate-900 font-medium">{fileName}</span>
                       ) : (
                         "Attach Project Brief (PDF optional)"
                       )}
                     </span>
                   </div>
-                  <span className="text-xs font-medium bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                  <span className="text-xs font-medium bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                     Browse
                   </span>
                 </label>

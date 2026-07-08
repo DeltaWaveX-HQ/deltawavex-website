@@ -65,7 +65,7 @@ export default function Products() {
   return (
     <section
       id="products"
-      className="pt-8 pb-[10vh] lg:pt-12 lg:pb-32 bg-slate-950 relative overflow-hidden"
+      className="pt-8 pb-[10vh] lg:pt-12 lg:pb-32 bg-slate-50 relative overflow-hidden"
     >
       {/* Large background glow */}
       <div
@@ -85,18 +85,18 @@ export default function Products() {
           <span
             className="inline-block text-xs font-bold tracking-[0.2em] uppercase mb-5 px-4 py-2 rounded-full"
             style={{
-              color: "#C084FC",
-              background: "rgba(139, 92, 246, 0.08)",
-              border: "1px solid rgba(139, 92, 246, 0.2)",
+              color: "#9333EA",
+              background: "rgba(147, 51, 234, 0.08)",
+              border: "1px solid rgba(147, 51, 234, 0.2)",
             }}
           >
             Featured Work
           </span>
-          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4">
             Products We&apos;ve{" "}
             <span className="gradient-text">Launched</span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
             From marketplaces to SaaS platforms — real products shipped for
             real businesses.
           </p>
@@ -119,19 +119,19 @@ export default function Products() {
               <div
                 className="relative h-full rounded-3xl overflow-hidden transition-all duration-500 cursor-pointer"
                 style={{
-                  background: "rgba(255,255,255,0.025)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+                  background: "white",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                  boxShadow: "0 10px 40px rgba(0,0,0,0.05)",
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLDivElement).style.transform = "translateY(-8px) scale(1.01)";
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 40px ${product.glowColor}, 0 0 80px ${product.glowColor}50, 0 30px 80px rgba(0,0,0,0.5)`;
-                  (e.currentTarget as HTMLDivElement).style.borderColor = `rgba(${product.accentRgb}, 0.35)`;
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = `0 20px 50px rgba(0,0,0,0.1)`;
+                  (e.currentTarget as HTMLDivElement).style.borderColor = `rgba(${product.accentRgb}, 0.25)`;
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLDivElement).style.transform = "translateY(0) scale(1)";
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 20px 60px rgba(0,0,0,0.3)";
-                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.06)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 10px 40px rgba(0,0,0,0.05)";
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(0,0,0,0.06)";
                 }}
               >
                 {/* Animated shimmer top bar */}
@@ -170,7 +170,7 @@ export default function Products() {
                   </div>
 
                   {/* Name */}
-                  <h3 className="text-2xl font-black text-white mb-2">
+                  <h3 className="text-2xl font-black text-slate-900 mb-2">
                     {product.name}
                   </h3>
 
@@ -186,7 +186,7 @@ export default function Products() {
                   </span>
 
                   {/* Description */}
-                  <p className="text-slate-400 text-sm leading-relaxed">
+                  <p className="text-slate-600 text-sm leading-relaxed">
                     {product.description}
                   </p>
                 </div>
@@ -194,7 +194,7 @@ export default function Products() {
                 {/* Features */}
                 <div
                   className="px-8 py-5"
-                  style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
+                  style={{ borderTop: "1px solid rgba(0,0,0,0.05)" }}
                 >
                   <div className="space-y-2.5">
                     {product.features.map((feature) => (
@@ -203,7 +203,7 @@ export default function Products() {
                           className="w-4 h-4 flex-shrink-0"
                           style={{ color: `rgba(${product.accentRgb}, 1)` }}
                         />
-                        <span className="text-slate-300 text-sm font-medium">
+                        <span className="text-slate-700 text-sm font-medium">
                           {feature}
                         </span>
                       </div>
@@ -214,7 +214,7 @@ export default function Products() {
                 {/* Stats */}
                 <div
                   className="px-8 py-5 grid grid-cols-3 gap-3"
-                  style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
+                  style={{ borderTop: "1px solid rgba(0,0,0,0.05)" }}
                 >
                   {product.stats.map((stat) => (
                     <div key={stat.label} className="text-center">

@@ -12,7 +12,7 @@ import SceneSection from "@/components/SceneSection";
 
 export default function Home() {
   return (
-    <main className="bg-slate-950 min-h-screen">
+    <main className="bg-slate-50 min-h-screen">
       <Navbar />
 
       {/* Hero — starts visible, recedes into depth as you scroll */}

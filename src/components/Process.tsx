@@ -78,10 +78,10 @@ function StepVisual({ color, Icon }: { color: string; Icon: any }) {
       <motion.div
         animate={{ y: [-8, 8, -8] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="relative z-10 w-24 h-24 rounded-3xl bg-slate-900/90 border border-white/10 shadow-2xl backdrop-blur-md flex items-center justify-center overflow-hidden"
+        className="relative z-10 w-24 h-24 rounded-3xl bg-white border border-slate-200 shadow-xl backdrop-blur-md flex items-center justify-center overflow-hidden"
       >
         <div className={`absolute inset-0 bg-gradient-to-br ${color} opacity-20`} />
-        <Icon className="w-10 h-10 text-white relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]" />
+        <Icon className="w-10 h-10 text-slate-900 relative z-10" />
       </motion.div>
     </div>
   );
@@ -131,11 +131,11 @@ function StepCard({
       <div className={`lg:w-[calc(50%-40px)] ${isLeft ? "lg:text-right" : "lg:text-left"}`}>
         <motion.div
           style={{ x, opacity }}
-          className={`bg-slate-900/60 border border-white/5 rounded-2xl overflow-hidden shadow-xl inline-block w-full text-left flex flex-col group`}
+          className={`bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-lg inline-block w-full text-left flex flex-col group`}
         >
           {/* VISUAL AREA */}
-          <div className="h-48 relative border-b border-white/5 overflow-hidden flex items-center justify-center bg-slate-950/50">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/50 pointer-events-none z-0" />
+          <div className="h-48 relative border-b border-slate-200 overflow-hidden flex items-center justify-center bg-slate-50">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50 pointer-events-none z-0" />
             <div className="relative z-10 w-full h-full">
                <StepVisual color={step.color} Icon={Icon} />
             </div>
@@ -151,10 +151,10 @@ function StepCard({
                 {step.number}
               </span>
             </div>
-            <h3 className={`text-white font-bold text-lg mb-2 ${isLeft ? "lg:text-right" : "lg:text-left"}`}>
+            <h3 className={`text-slate-900 font-bold text-lg mb-2 ${isLeft ? "lg:text-right" : "lg:text-left"}`}>
               {step.title}
             </h3>
-            <p className={`text-slate-400 text-sm leading-relaxed ${isLeft ? "lg:text-right" : "lg:text-left"}`}>
+            <p className={`text-slate-600 text-sm leading-relaxed ${isLeft ? "lg:text-right" : "lg:text-left"}`}>
               {step.description}
             </p>
           </div>
@@ -190,12 +190,12 @@ export default function Process() {
   const y = useTransform(scrollYProgress, [0, 1], ["0vh", "-430vh"]);
 
   return (
-    <section id="process" ref={containerRef} className="relative h-[600vh] bg-slate-950">
+    <section id="process" ref={containerRef} className="relative h-[600vh] bg-slate-50">
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen overflow-hidden">
         
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_0%,rgba(15,23,42,0)_0%,rgba(2,6,23,1)_100%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_0%,rgba(248,250,252,0)_0%,rgba(248,250,252,1)_100%)] pointer-events-none" />
 
 
 
@@ -211,13 +211,13 @@ export default function Process() {
           >
           {/* Section Header — scrolls with the timeline */}
           <div className="text-center px-6 mb-16">
-            <span className="inline-block text-sm font-semibold text-emerald-400 tracking-widest uppercase mb-4">
+            <span className="inline-block text-sm font-semibold text-emerald-600 tracking-widest uppercase mb-4">
               How We Work
             </span>
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
               Our <span className="gradient-text">Development Process</span>
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-slate-600 text-lg max-w-2xl mx-auto">
               A proven, transparent 7-step process that takes your idea from concept to a live, scaling product.
             </p>
           </div>
@@ -241,7 +241,7 @@ export default function Process() {
         </motion.div>
         </div>
         {/* Progress bar at the bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-slate-900 z-30">
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-slate-200 z-30">
           <motion.div
             className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500"
             style={{ scaleX: scrollYProgress, transformOrigin: "left" }}

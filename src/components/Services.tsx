@@ -151,8 +151,8 @@ function TiltCard({
     if (!card) return;
     card.style.transform =
       "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)";
-    card.style.boxShadow = "none";
-    card.style.borderColor = "rgba(255,255,255,0.06)";
+    card.style.boxShadow = "0 4px 20px rgba(0,0,0,0.05)";
+    card.style.borderColor = "rgba(0,0,0,0.06)";
   };
 
   return (
@@ -172,7 +172,7 @@ function TiltCard({
         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle 200px at var(--glow-x, 50%) var(--glow-y, 50%), rgba(255,255,255,0.04) 0%, transparent 80%)",
+            "radial-gradient(circle 200px at var(--glow-x, 50%) var(--glow-y, 50%), rgba(0,0,0,0.03) 0%, transparent 80%)",
         }}
       />
       {children}
@@ -203,13 +203,13 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="pt-24 pb-[10vh] lg:pt-32 lg:pb-32 bg-slate-950 relative overflow-hidden"
+      className="pt-24 pb-[10vh] lg:pt-32 lg:pb-32 bg-slate-50 relative overflow-hidden"
     >
       {/* Background dot grid */}
       <div
         className="absolute inset-0 opacity-[0.025]"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.8) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0)`,
           backgroundSize: "48px 48px",
         }}
       />
@@ -231,18 +231,18 @@ export default function Services() {
           <span
             className="inline-block text-xs font-bold tracking-[0.2em] uppercase mb-5 px-4 py-2 rounded-full"
             style={{
-              color: "#60A5FA",
-              background: "rgba(37, 99, 235, 0.08)",
+              color: "#2563EB",
+              background: "rgba(37, 99, 235, 0.1)",
               border: "1px solid rgba(37, 99, 235, 0.2)",
             }}
           >
             What We Build
           </span>
-          <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4">
             Services Built for{" "}
             <span className="gradient-text">Scale</span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
             From concept to deployment, we deliver premium digital products
             across every platform and technology.
           </p>
@@ -264,8 +264,9 @@ export default function Services() {
                 service={service as any}
                 className="relative rounded-2xl p-6 cursor-pointer h-full overflow-hidden"
                 style={{
-                  background: "rgba(255, 255, 255, 0.025)",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  background: "white",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
                 } as React.CSSProperties}
               >
                 {/* Top highlight line */}
@@ -286,20 +287,19 @@ export default function Services() {
                 </div>
 
                 {/* Content */}
-                <h3 className="text-white font-bold text-base mb-2.5 leading-snug">
+                <h3 className="text-slate-900 font-bold text-base mb-2.5 leading-snug">
                   {service.title}
                 </h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
+                <p className="text-slate-600 text-sm leading-relaxed mb-6">
                   {service.description}
                 </p>
 
                 {/* Bottom arrow */}
                 <div
                   className="mt-5 text-xs font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0"
-                  style={{ color: "#60A5FA" }}
+                  style={{ color: "#2563EB" }}
                 >
-                  Learn more
-                  <span>→</span>
+                  Explore Service <span>→</span>
                 </div>
               </TiltCard>
             );
