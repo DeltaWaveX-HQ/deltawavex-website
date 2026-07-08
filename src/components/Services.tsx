@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 import {
   Smartphone,
   Globe,
@@ -24,6 +25,7 @@ const services = [
     glowHover: "rgba(37, 99, 235, 0.25)",
     borderHover: "rgba(37, 99, 235, 0.4)",
     iconBg: "linear-gradient(135deg, #2563EB, #06B6D4)",
+    href: "/services/mobile-app",
   },
   {
     icon: Globe,
@@ -35,6 +37,7 @@ const services = [
     glowHover: "rgba(6, 182, 212, 0.25)",
     borderHover: "rgba(6, 182, 212, 0.4)",
     iconBg: "linear-gradient(135deg, #06B6D4, #0EA5E9)",
+    href: "/services/web-development",
   },
   {
     icon: Cloud,
@@ -46,6 +49,7 @@ const services = [
     glowHover: "rgba(139, 92, 246, 0.25)",
     borderHover: "rgba(139, 92, 246, 0.4)",
     iconBg: "linear-gradient(135deg, #8B5CF6, #7C3AED)",
+    href: "/services/saas-development",
   },
   {
     icon: Brain,
@@ -57,6 +61,7 @@ const services = [
     glowHover: "rgba(236, 72, 153, 0.25)",
     borderHover: "rgba(236, 72, 153, 0.4)",
     iconBg: "linear-gradient(135deg, #EC4899, #F43F5E)",
+    href: "/services/ai-machine-learning",
   },
   {
     icon: Store,
@@ -68,6 +73,7 @@ const services = [
     glowHover: "rgba(245, 158, 11, 0.25)",
     borderHover: "rgba(245, 158, 11, 0.4)",
     iconBg: "linear-gradient(135deg, #F59E0B, #EF4444)",
+    href: "/services/marketplace-platforms",
   },
   {
     icon: Building2,
@@ -79,6 +85,7 @@ const services = [
     glowHover: "rgba(16, 185, 129, 0.25)",
     borderHover: "rgba(16, 185, 129, 0.4)",
     iconBg: "linear-gradient(135deg, #10B981, #059669)",
+    href: "/services/business-software",
   },
   {
     icon: Server,
@@ -90,6 +97,7 @@ const services = [
     glowHover: "rgba(14, 165, 233, 0.25)",
     borderHover: "rgba(14, 165, 233, 0.4)",
     iconBg: "linear-gradient(135deg, #0EA5E9, #2563EB)",
+    href: "/services/cloud-solutions",
   },
   {
     icon: Rocket,
@@ -101,6 +109,7 @@ const services = [
     glowHover: "rgba(124, 58, 237, 0.25)",
     borderHover: "rgba(124, 58, 237, 0.4)",
     iconBg: "linear-gradient(135deg, #7C3AED, #8B5CF6)",
+    href: "/services/startup-mvp",
   },
 ];
 
@@ -249,50 +258,61 @@ export default function Services() {
         >
           {services.map((service, index) => {
             const Icon = service.icon;
-            return (
-              <motion.div key={index} variants={cardVariants} className="group">
-                <TiltCard
-                  service={service}
-                  className="relative rounded-2xl p-6 cursor-pointer h-full overflow-hidden"
+            
+            const cardContent = (
+              <TiltCard
+                service={service as any}
+                className="relative rounded-2xl p-6 cursor-pointer h-full overflow-hidden"
+                style={{
+                  background: "rgba(255, 255, 255, 0.025)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                } as React.CSSProperties}
+              >
+                {/* Top highlight line */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: `linear-gradient(${service.gradient})` }}
+                />
+
+                {/* Icon */}
+                <div
+                  className="inline-flex p-3 rounded-xl mb-5 shadow-lg"
                   style={{
-                    background: "rgba(255, 255, 255, 0.025)",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                  } as React.CSSProperties}
+                    background: service.iconBg,
+                    boxShadow: `0 0 20px ${service.glowColor}40, 0 4px 16px rgba(0,0,0,0.3)`,
+                  }}
                 >
-                  {/* Top highlight line */}
-                  <div
-                    className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: `linear-gradient(${service.gradient})` }}
-                  />
+                  <Icon className="w-5 h-5 text-white" strokeWidth={2} />
+                </div>
 
-                  {/* Icon */}
-                  <div
-                    className="inline-flex p-3 rounded-xl mb-5 shadow-lg"
-                    style={{
-                      background: service.iconBg,
-                      boxShadow: `0 0 20px ${service.glowColor}40, 0 4px 16px rgba(0,0,0,0.3)`,
-                    }}
-                  >
-                    <Icon className="w-5 h-5 text-white" strokeWidth={2} />
-                  </div>
+                {/* Content */}
+                <h3 className="text-white font-bold text-base mb-2.5 leading-snug">
+                  {service.title}
+                </h3>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  {service.description}
+                </p>
 
-                  {/* Content */}
-                  <h3 className="text-white font-bold text-base mb-2.5 leading-snug">
-                    {service.title}
-                  </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    {service.description}
-                  </p>
+                {/* Bottom arrow */}
+                <div
+                  className="mt-5 text-xs font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0"
+                  style={{ color: "#60A5FA" }}
+                >
+                  Learn more
+                  <span>→</span>
+                </div>
+              </TiltCard>
+            );
 
-                  {/* Bottom arrow */}
-                  <div
-                    className="mt-5 text-xs font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0"
-                    style={{ color: "#60A5FA" }}
-                  >
-                    Learn more
-                    <span>→</span>
-                  </div>
-                </TiltCard>
+            return (
+              <motion.div key={index} variants={cardVariants} className="group h-full">
+                {('href' in service) ? (
+                  <Link href={service.href as string} className="block h-full">
+                    {cardContent}
+                  </Link>
+                ) : (
+                  cardContent
+                )}
               </motion.div>
             );
           })}
