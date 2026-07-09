@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Play, Sparkles, Code2, Smartphone, Brain, Layers } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 const techItems = [
   "React Native", "Next.js", "Flutter", "Node.js", "Python", "TensorFlow",
@@ -17,6 +18,49 @@ const serviceHighlights = [
 ];
 
 export default function Hero() {
+  const vantaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    let effect: any = null;
+
+    Promise.all([
+      import("three"),
+      import("@/lib/vanta-net")
+    ]).then(([THREE, vantaNet]) => {
+      if (isMounted && vantaRef.current) {
+        const vantaInit = (vantaNet.default || vantaNet) as any;
+        effect = vantaInit({
+          el: vantaRef.current,
+          THREE: THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x06b6d4,          // theme secondary cyan color for high contrast tech look
+          backgroundColor: 0x020617, // slate-950 background
+          backgroundAlpha: 0.0,      // transparent to overlay on gradient
+          points: 12,
+          maxDistance: 22.00,
+          spacing: 16.00,
+          showDots: true,
+        });
+      }
+    }).catch((err) => {
+      console.error("Vanta Net loading error:", err);
+    });
+
+    return () => {
+      isMounted = false;
+      if (effect) {
+        effect.destroy();
+      }
+    };
+  }, []);
+
   return (
     <section
       id="hero"
@@ -32,6 +76,9 @@ export default function Hero() {
             "radial-gradient(ellipse 70% 50% at 50% 45%, rgba(37, 99, 235, 0.14) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 55% 40%, rgba(139, 92, 246, 0.12) 0%, transparent 65%), radial-gradient(ellipse 60% 40% at 45% 55%, rgba(6, 182, 212, 0.08) 0%, transparent 60%)",
         }}
       />
+
+      {/* Vanta Canvas Container */}
+      <div ref={vantaRef} className="absolute inset-0 opacity-50 pointer-events-none" />
 
       {/* Aurora — soft animated gradient sweep */}
       <motion.div
@@ -294,9 +341,9 @@ export default function Hero() {
           {/* Divider lines */}
           <div className="w-full h-px mb-4" style={{ background: "linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.25), transparent)" }} />
           <div className="flex" style={{ width: "max-content" }}>
-            <div className="flex items-center gap-10 animate-marquee whitespace-nowrap pr-10">
+            <div className="flex items-center animate-marquee whitespace-nowrap">
               {[...techItems, ...techItems].map((item, i) => (
-                <div key={i} className="flex items-center gap-10 shrink-0">
+                <div key={i} className="flex items-center gap-10 shrink-0 mr-10">
                   <span className="text-slate-500 text-xs font-semibold tracking-[0.15em] uppercase">
                     {item}
                   </span>
