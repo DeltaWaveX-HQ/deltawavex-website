@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@plugin "../../node_modules/@tailwindcss/typography";
 @theme {
   --color-slate-950: #000000;
   --color-slate-900: #0a0a0a;
