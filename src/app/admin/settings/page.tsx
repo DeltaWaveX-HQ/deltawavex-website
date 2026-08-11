@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useAuthStore } from "@/store/useAuthStore";
 import { motion } from "framer-motion";
 import { ShieldCheck, Mail, User, Clock } from "lucide-react";

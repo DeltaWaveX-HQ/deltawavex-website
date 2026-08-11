@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useAuthStore } from "@/store/useAuthStore";
 import { FileText, Eye, Clock, ShieldCheck } from "lucide-react";
 import Link from "next/link";
