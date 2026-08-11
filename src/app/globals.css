@@ -288,12 +288,31 @@
 
 /* === CUSTOM CURSOR === */
 @media (pointer: fine) and (hover: hover) {
+  html,
+  body,
+  html *,
+  body *,
+  html *::before,
+  html *::after,
+  body *::before,
+  body *::after,
   .custom-cursor-active,
-  .custom-cursor-active * {
+  .custom-cursor-active body,
+  .custom-cursor-active *,
+  .custom-cursor-active *:hover,
+  .custom-cursor-active *:focus,
+  .custom-cursor-active *:active,
+  .custom-cursor-active a,
+  .custom-cursor-active button,
+  .custom-cursor-active input,
+  .custom-cursor-active textarea,
+  .custom-cursor-active select,
+  .custom-cursor-active label,
+  .custom-cursor-active [role="button"] {
     cursor: none !important;
   }
 
-  /* Restore text cursor inside inputs/textareas for usability */
+  /* Restore visible text caret inside inputs/textareas for usability */
   .custom-cursor-active input,
   .custom-cursor-active textarea,
   .custom-cursor-active [contenteditable="true"] {

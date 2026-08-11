@@ -78,7 +78,7 @@ export default function Testimonials() {
   const t = testimonials[current];
 
   return (
-    <section id="testimonials" className="py-20 lg:py-28 bg-transparent relative overflow-hidden">
+    <section id="testimonials" className="py-10 lg:py-14 bg-transparent relative overflow-hidden">
       {/* Background radial accent */}
       <div className="absolute inset-0 pointer-events-none">
         <div

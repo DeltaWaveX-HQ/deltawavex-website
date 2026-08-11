@@ -82,7 +82,7 @@ export default function Technologies() {
   return (
     <section
       id="technologies"
-      className="py-18 lg:py-26 bg-transparent relative overflow-hidden"
+      className="py-10 lg:py-14 bg-transparent relative overflow-hidden"
     >
       {/* Background grid */}
       <div

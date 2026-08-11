@@ -45,6 +45,7 @@ export default function ThreeCanvas() {
 
     // 3. Initialize 3D Visual Modules
     const heroScene = new HeroScene(isMobile);
+    heroScene.updatePosition(window.innerWidth);
     scene.add(heroScene.group);
 
     const particleField = new ParticleField(isMobile);

@@ -116,7 +116,7 @@ export default function WhyUs() {
   const inView = useInView(ref, { once: false, margin: "-60px" });
 
   return (
-    <section id="about" className="py-20 lg:py-28 bg-transparent relative overflow-hidden">
+    <section id="about" className="py-10 lg:py-14 bg-transparent relative overflow-hidden">
       {/* Subtle section background accents */}
       <div
         className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"

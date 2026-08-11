@@ -137,7 +137,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="py-18 lg:py-26 bg-transparent relative overflow-hidden"
+      className="py-10 lg:py-14 bg-transparent relative overflow-hidden"
     >
       {/* Background dot grid */}
       <div

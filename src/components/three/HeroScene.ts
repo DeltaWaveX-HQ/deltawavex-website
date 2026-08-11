@@ -149,7 +149,7 @@ export class HeroScene {
     const nodeTexture = new THREE.CanvasTexture(nodeCanvas);
 
     // 2. Build Secondary AI Computational Network on the LEFT
-    const numAINodes = isMobile ? 6 : 16;
+    const numAINodes = isMobile ? 10 : 16;
     this.aiPositions = new Float32Array(numAINodes * 3);
     this.aiColors = new Float32Array(numAINodes * 3);
 
@@ -581,23 +581,26 @@ export class HeroScene {
 
   public updatePosition(width: number) {
     if (width < 768) {
-      // Mobile: Centered behind/above text, low scale & opacity
-      this.group.position.set(0, 0.9, -1.4);
-      this.group.rotation.set(Math.PI / 6, 0, 0);
-      this.group.scale.set(0.45, 0.45, 0.45);
-      this.aiNetworkGroup.visible = false;
+      // Mobile: Centered AI network & Top-Right -> Lower-Right DeltaWave ribbon
+      this.group.rotation.set(Math.PI / 6.5, -Math.PI / 14, Math.PI / 22);
+      this.aiNetworkGroup.visible = true;
+      this.aiNetworkGroup.position.set(2.45, 0.1, 0.1);
+      this.transitionLinesMesh.visible = true;
+      this.transitionPulsesMesh.visible = true;
     } else if (width < 1024) {
       // Tablet: Shifted right
-      this.group.position.set(1.0, 0.1, -0.5);
       this.group.rotation.set(Math.PI / 8, -Math.PI / 12, 0);
-      this.group.scale.set(0.72, 0.72, 0.72);
       this.aiNetworkGroup.visible = true;
+      this.aiNetworkGroup.position.set(0, 0, 0);
+      this.transitionLinesMesh.visible = true;
+      this.transitionPulsesMesh.visible = true;
     } else {
       // Desktop: Main Delta Wave Ribbon at x = 1.45, Left AI Network at far left
-      this.group.position.set(1.45, 0.05, -0.4);
       this.group.rotation.set(Math.PI / 7, -Math.PI / 10, Math.PI / 18);
-      this.group.scale.set(0.95, 0.95, 0.95);
       this.aiNetworkGroup.visible = true;
+      this.aiNetworkGroup.position.set(0, 0, 0);
+      this.transitionLinesMesh.visible = true;
+      this.transitionPulsesMesh.visible = true;
     }
   }
 

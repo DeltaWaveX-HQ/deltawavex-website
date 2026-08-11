@@ -207,11 +207,13 @@ export class ScrollController {
   ) {
     // Smooth lerp for scroll progress
     this.currentScroll += (this.targetScroll - this.currentScroll) * 0.08;
+    const width = typeof window !== "undefined" ? window.innerWidth : 1200;
 
     if (!reducedMotion) {
       // 1. Mouse parallax in fixed viewport coordinates
-      const parallaxX = mouse.x * 0.35;
-      const parallaxY = mouse.y * 0.25;
+      const parallaxFactor = width < 768 ? 0.12 : 0.35;
+      const parallaxX = mouse.x * parallaxFactor;
+      const parallaxY = mouse.y * (parallaxFactor * 0.7);
 
       // Keep camera anchored in fixed viewport space so wave NEVER leaves the screen
       camera.position.x = parallaxX;
@@ -219,10 +221,59 @@ export class ScrollController {
       camera.position.z = 7;
       camera.lookAt(0, 0, 0);
 
-      // 2. Interpolate section parameters seamlessly
+      // 2. Interpolate section parameters seamlessly & apply responsive mobile scaling/positioning
       const interpolatedParams = this.interpolateKeyframes(this.currentScroll);
-      heroScene.setSectionInterpolation(interpolatedParams);
+      const responsiveParams = this.getResponsiveParams(interpolatedParams, width);
+      heroScene.setSectionInterpolation(responsiveParams);
     }
+  }
+
+  private getResponsiveParams(params: SectionParams, width: number): SectionParams {
+    if (width >= 1024) {
+      // Desktop: Preserved 100% exact baseline design parameters
+      return params;
+    }
+
+    if (width >= 768) {
+      // Tablet (768px - 1023px)
+      return {
+        ...params,
+        waveX: params.waveX * 0.48,
+        waveY: params.waveY,
+        scale: params.scale * 0.72,
+        waveOpacity: Math.min(0.65, params.waveOpacity * 0.85),
+        aiOpacity: Math.min(0.55, params.aiOpacity * 0.75),
+        aiLineOpacity: Math.min(0.2, params.aiLineOpacity * 0.75),
+      };
+    }
+
+    if (width >= 375) {
+      // Standard Mobile (375px - 767px): Top-right wave entry + subtle centered network
+      return {
+        ...params,
+        waveX: params.waveX * 0.3,
+        waveY: params.waveY + 0.12,
+        waveZ: params.waveZ - 0.15,
+        scale: params.scale * 0.58,
+        waveOpacity: Math.min(0.5, params.waveOpacity * 0.68),
+        lineOpacity: Math.min(0.14, params.lineOpacity * 0.7),
+        aiOpacity: Math.min(0.42, params.aiOpacity * 0.58),
+        aiLineOpacity: Math.min(0.15, params.aiLineOpacity * 0.55),
+      };
+    }
+
+    // Very Narrow Mobile (< 375px down to 320px): Fit inside narrow 320px viewport
+    return {
+      ...params,
+      waveX: params.waveX * 0.22,
+      waveY: params.waveY + 0.08,
+      waveZ: params.waveZ - 0.2,
+      scale: params.scale * 0.48,
+      waveOpacity: Math.min(0.45, params.waveOpacity * 0.6),
+      lineOpacity: Math.min(0.12, params.lineOpacity * 0.6),
+      aiOpacity: Math.min(0.38, params.aiOpacity * 0.5),
+      aiLineOpacity: Math.min(0.12, params.aiLineOpacity * 0.5),
+    };
   }
 
   private interpolateKeyframes(scroll: number): SectionParams {

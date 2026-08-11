@@ -12,22 +12,13 @@ const INTERACTIVE_SELECTORS = [
   "[role=\"button\"]",
   "[tabindex]",
   "[data-cursor=\"interactive\"]",
-  "[data-cursor=\"magnetic\"]",
   "label[for]",
   "label[htmlFor]",
 ].join(",");
 
-const MAGNETIC_SELECTORS = "[data-cursor=\"magnetic\"]";
-
 function isInteractiveElement(el: Element | null): boolean {
   if (!el) return false;
   return el.matches(INTERACTIVE_SELECTORS) || !!el.closest(INTERACTIVE_SELECTORS);
-}
-
-function getMagneticTarget(el: Element | null): Element | null {
-  if (!el) return null;
-  if (el.matches(MAGNETIC_SELECTORS)) return el;
-  return el.closest(MAGNETIC_SELECTORS);
 }
 
 function getAccentColor(el: Element | null): string | null {
@@ -56,19 +47,18 @@ export default function CustomCursor() {
     };
     motionQuery.addEventListener("change", onMotionChange);
 
-    // ─── Mutable state ─────────────────────────────────────────
+    // ─── Fast Mutable State ─────────────────────────────────────
     let mouseX = -100;
     let mouseY = -100;
     let isHovering = false;
     let isClicking = false;
     let isVisible = false;
     let accentColor: string | null = null;
-    let magneticOffsetX = 0;
-    let magneticOffsetY = 0;
     let rafId = 0;
 
     // ─── Hide default cursor ──────────────────────────────────
     document.documentElement.classList.add("custom-cursor-active");
+    document.body.classList.add("custom-cursor-active");
 
     // ─── Animation loop (RAF) ─────────────────────────────────
     function tick() {
@@ -80,14 +70,12 @@ export default function CustomCursor() {
         return;
       }
 
-      const coreX = mouseX + magneticOffsetX;
-      const coreY = mouseY + magneticOffsetY;
-
       let coreScale = 1;
-      if (isHovering) coreScale = 1.1;
-      if (isClicking) coreScale = 0.9;
+      if (isHovering && !prefersReducedMotion) coreScale = 1.15;
+      if (isClicking) coreScale = 0.88;
 
-      core.style.transform = `translate3d(${coreX}px, ${coreY}px, 0) translate(-50%, -50%) scale(${coreScale})`;
+      // Direct transform update — zero lag, instantaneous 1:1 mouse tracking
+      core.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%) scale(${coreScale})`;
       wrapper.style.opacity = isVisible ? "1" : "0";
 
       // Mouse SVG glow states
@@ -112,33 +100,15 @@ export default function CustomCursor() {
       rafId = requestAnimationFrame(tick);
     }
 
-    // ─── Pointer move ──────────────────────────────────────────
+    // ─── Pointer move (Ultra lightweight) ───────────────────────
     const onMouseMove = (e: PointerEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
       if (!isVisible) isVisible = true;
 
-      const target = document.elementFromPoint(e.clientX, e.clientY);
+      const target = e.target as Element | null;
       isHovering = isInteractiveElement(target);
       accentColor = getAccentColor(target);
-
-      if (!prefersReducedMotion) {
-        const magneticTarget = getMagneticTarget(target);
-        if (magneticTarget) {
-          const rect = magneticTarget.getBoundingClientRect();
-          const centerX = rect.left + rect.width / 2;
-          const centerY = rect.top + rect.height / 2;
-          const distX = centerX - e.clientX;
-          const distY = centerY - e.clientY;
-          const maxPull = 6;
-          const pull = 0.15;
-          magneticOffsetX = Math.max(-maxPull, Math.min(maxPull, distX * pull));
-          magneticOffsetY = Math.max(-maxPull, Math.min(maxPull, distY * pull));
-        } else {
-          magneticOffsetX = 0;
-          magneticOffsetY = 0;
-        }
-      }
     };
 
     const onMouseDown = () => { isClicking = true; };
@@ -157,6 +127,7 @@ export default function CustomCursor() {
     return () => {
       cancelAnimationFrame(rafId);
       document.documentElement.classList.remove("custom-cursor-active");
+      document.body.classList.remove("custom-cursor-active");
       document.removeEventListener("pointermove", onMouseMove);
       document.removeEventListener("pointerdown", onMouseDown);
       document.removeEventListener("pointerup", onMouseUp);
@@ -180,7 +151,7 @@ export default function CustomCursor() {
         zIndex: 99999,
         pointerEvents: "none",
         opacity: 0,
-        transition: "opacity 0.3s ease",
+        transition: "opacity 0.2s ease",
       }}
     >
       {/* Tiny Futuristic Mouse Silhouette */}
@@ -192,7 +163,6 @@ export default function CustomCursor() {
           left: 0,
           width: "14px",
           height: "20px",
-          transition: "transform 0.2s ease",
           willChange: "transform",
         }}
       >
@@ -217,7 +187,7 @@ export default function CustomCursor() {
             strokeWidth="1"
             style={{
               filter: "drop-shadow(0 0 3px rgba(6, 182, 212, 0.35))",
-              transition: "stroke 0.25s ease, filter 0.25s ease",
+              transition: "stroke 0.2s ease, filter 0.2s ease",
             }}
           />
           <line x1="7" y1="2" x2="7" y2="8" stroke="rgba(6, 182, 212, 0.2)" strokeWidth="0.5" />

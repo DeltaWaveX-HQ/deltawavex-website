@@ -131,13 +131,13 @@ export default function Hero() {
       ))}
 
       {/* ======================== MAIN CONTENT ======================== */}
-      <div className="relative z-10 max-w-[1100px] mx-auto px-6 lg:px-8 text-center pt-40 pb-56">
+      <div className="relative z-10 w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-28 pb-16 sm:pt-40 sm:pb-24 overflow-x-hidden">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full mb-14"
+          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full mb-8 sm:mb-14 max-w-full"
           style={{
             background: "rgba(37, 99, 235, 0.08)",
             border: "1px solid rgba(37, 99, 235, 0.25)",
@@ -145,11 +145,11 @@ export default function Hero() {
               "0 0 25px rgba(37, 99, 235, 0.12), inset 0 1px 0 rgba(255,255,255,0.04)",
           }}
         >
-          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-          <span className="text-blue-300 text-sm font-semibold tracking-wide">
+          <Sparkles className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
+          <span className="text-blue-300 text-xs sm:text-sm font-semibold tracking-wide truncate">
             Premium Technology Studio
           </span>
-          <div className="relative flex h-2 w-2">
+          <div className="relative flex h-2 w-2 flex-shrink-0">
             <div className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-50" />
             <div className="relative inline-flex rounded-full h-2 w-2 bg-blue-400" />
           </div>
@@ -160,8 +160,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] as const }}
+          className="w-full max-w-full px-2 sm:px-0"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] font-black tracking-tight text-white leading-[1.08] mb-10">
+          <h1 className="text-[32px] xs:text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] font-black tracking-tight text-white leading-[1.1] mb-6 sm:mb-10 break-words">
             We Build{" "}
             <span
               style={{
@@ -194,7 +195,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="text-lg sm:text-xl text-slate-400 max-w-[680px] mx-auto leading-relaxed mb-16"
+          className="text-base sm:text-xl text-slate-400 w-full max-w-[620px] mx-auto leading-relaxed px-2 sm:px-0 mb-10 sm:mb-16 break-words"
         >
           We design and develop high-performance mobile apps, web platforms,
           AI-powered solutions, and scalable SaaS products that help businesses
@@ -206,7 +207,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 sm:mb-20 w-full max-w-xs sm:max-w-none mx-auto"
         >
           <motion.a
             href="#contact"
@@ -214,7 +215,7 @@ export default function Hero() {
             data-cursor="magnetic"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-white font-bold text-base relative overflow-hidden"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl text-white font-bold text-base relative overflow-hidden"
             style={{
               background: "linear-gradient(135deg, #2563EB 0%, #06B6D4 50%, #8B5CF6 100%)",
               boxShadow:
@@ -229,7 +230,7 @@ export default function Hero() {
               style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)" }}
             />
             <span className="relative">Book a Free Consultation</span>
-            <ArrowRight className="w-4 h-4 relative" />
+            <ArrowRight className="w-4 h-4 relative flex-shrink-0" />
           </motion.a>
 
           <motion.a
@@ -238,7 +239,7 @@ export default function Hero() {
             data-cursor="magnetic"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-white font-semibold text-base transition-all duration-300"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl text-white font-semibold text-base transition-all duration-300"
             style={{
               background: "rgba(255,255,255,0.04)",
               border: "1px solid rgba(255,255,255,0.1)",
@@ -246,80 +247,85 @@ export default function Hero() {
               boxShadow: "0 0 0 1px rgba(255,255,255,0.04), 0 8px 32px rgba(0,0,0,0.3)",
             }}
           >
-            <Play className="w-4 h-4" />
+            <Play className="w-4 h-4 flex-shrink-0" />
             Explore Our Work
           </motion.a>
         </motion.div>
 
-        {/* Service Highlights */}
+        {/* Service Highlights (Responsive 2-Column Grid on Mobile, Flex Row on Desktop) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55 }}
-          className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4"
+          className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-3 sm:gap-x-10 sm:gap-y-4 max-w-xl sm:max-w-none mx-auto pb-10 sm:pb-14 w-full"
         >
           {serviceHighlights.map((item, i) => {
             const Icon = item.icon;
             return (
-              <div key={i} className="flex items-center gap-2.5">
-                <Icon className="w-4 h-4 text-blue-400/80" />
-                <span className="text-slate-400 text-sm font-medium">{item.label}</span>
+              <div
+                key={i}
+                className="flex items-center justify-center sm:justify-start gap-2 sm:gap-2.5 p-2.5 sm:p-0 rounded-xl bg-slate-900/40 sm:bg-transparent border border-white/5 sm:border-none text-center sm:text-left"
+              >
+                <Icon className="w-4 h-4 text-blue-400/80 flex-shrink-0" />
+                <span className="text-slate-300 sm:text-slate-400 text-xs sm:text-sm font-medium leading-tight">
+                  {item.label}
+                </span>
               </div>
             );
           })}
         </motion.div>
-      </div>
 
-      {/* ======================== TECH MARQUEE ======================== */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
-        className="absolute bottom-16 left-0 right-0 overflow-hidden z-10"
-      >
-        {/* Section heading */}
-        <motion.p
+        {/* ======================== TECH MARQUEE (Normal Flow) ======================== */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.6, duration: 0.6 }}
-          className="text-center text-slate-600 text-xs font-semibold tracking-[0.2em] uppercase mb-5"
+          transition={{ delay: 1.4, duration: 0.8 }}
+          className="relative z-10 w-full mt-12 sm:mt-20 overflow-hidden"
         >
-          Technologies We Build With
-        </motion.p>
+          {/* Section heading */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6, duration: 0.6 }}
+            className="text-center text-slate-600 text-xs font-semibold tracking-[0.2em] uppercase mb-5"
+          >
+            Technologies We Build With
+          </motion.p>
 
-        <div
-          style={{
-            maskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
-          }}
-        >
-          {/* Divider lines */}
-          <div className="w-full h-px mb-4" style={{ background: "linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.25), transparent)" }} />
-          <div className="flex" style={{ width: "max-content" }}>
-            <div className="flex items-center gap-10 animate-marquee whitespace-nowrap pr-10">
-              {[...techItems, ...techItems].map((item, i) => (
-                <div key={i} className="flex items-center gap-10 shrink-0">
-                  <span className="text-slate-500 text-xs font-semibold tracking-[0.15em] uppercase">
-                    {item}
-                  </span>
-                  <div className="w-1 h-1 rounded-full bg-slate-600 flex-shrink-0" />
-                </div>
-              ))}
+          <div
+            style={{
+              maskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
+            }}
+          >
+            {/* Divider lines */}
+            <div className="w-full h-px mb-4" style={{ background: "linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.25), transparent)" }} />
+            <div className="flex" style={{ width: "max-content" }}>
+              <div className="flex items-center gap-10 animate-marquee whitespace-nowrap pr-10">
+                {[...techItems, ...techItems].map((item, i) => (
+                  <div key={i} className="flex items-center gap-10 shrink-0">
+                    <span className="text-slate-500 text-xs font-semibold tracking-[0.15em] uppercase">
+                      {item}
+                    </span>
+                    <div className="w-1 h-1 rounded-full bg-slate-600 flex-shrink-0" />
+                  </div>
+                ))}
+              </div>
             </div>
+            <div className="w-full h-px mt-4" style={{ background: "linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.25), transparent)" }} />
           </div>
-          <div className="w-full h-px mt-4" style={{ background: "linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.25), transparent)" }} />
-        </div>
 
-        {/* Trust statement */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
-          className="text-center text-slate-600 text-[13px] font-medium mt-5"
-        >
-          Helping startups and businesses build scalable digital products.
-        </motion.p>
-      </motion.div>
+          {/* Trust statement */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.8, duration: 0.6 }}
+            className="text-center text-slate-600 text-[13px] font-medium mt-5"
+          >
+            Helping startups and businesses build scalable digital products.
+          </motion.p>
+        </motion.div>
+      </div>
 
       {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />

@@ -103,7 +103,7 @@ export default function CTA() {
   return (
     <section
       id="contact"
-      className="py-20 lg:py-28 bg-transparent relative overflow-hidden"
+      className="py-10 lg:py-14 bg-transparent relative overflow-hidden"
     >
       {/* Background ambient lighting */}
       <div

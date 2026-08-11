@@ -195,7 +195,7 @@ export default function Process() {
   });
 
   return (
-    <section id="process" ref={containerRef} className="py-20 lg:py-32 bg-transparent relative overflow-hidden">
+    <section id="process" ref={containerRef} className="py-10 lg:py-14 bg-transparent relative overflow-hidden">
       {/* Subtle ambient overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,rgba(15,23,42,0)_0%,rgba(2,6,23,0.25)_100%)] pointer-events-none" />
 
