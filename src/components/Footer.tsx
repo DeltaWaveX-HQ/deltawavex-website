@@ -1,24 +1,25 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const footerLinks = {
   Company: [
-    { label: "About", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Products", href: "#products" },
-    { label: "Contact", href: "#contact" },
+    { label: "About", href: "/#about" },
+    { label: "Services", href: "/#services" },
+    { label: "Products", href: "/#products" },
+    { label: "Contact", href: "/#contact" },
   ],
   Services: [
-    { label: "Mobile App Dev", href: "#services" },
-    { label: "Web Development", href: "#services" },
-    { label: "SaaS Development", href: "#services" },
-    { label: "AI Solutions", href: "#services" },
+    { label: "Mobile App Dev", href: "/services/mobile-app" },
+    { label: "Web Development", href: "/services/web-development" },
+    { label: "SaaS Development", href: "/services/saas-development" },
+    { label: "AI Solutions", href: "/services/ai-machine-learning" },
   ],
   Products: [
-    { label: "Zomico", href: "#products" },
-    { label: "ShootKaro", href: "#products" },
-    { label: "Inventory Pro", href: "#products" },
+    { label: "Zomico", href: "/#products" },
+    { label: "ShootKaro", href: "/#products" },
+    { label: "Inventory Pro", href: "/#products" },
   ],
 };
 
@@ -54,7 +55,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-transparent border-t border-white/5 relative overflow-hidden">
       {/* Top fade from CTA */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
 
@@ -62,24 +63,19 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="flex items-center gap-3 mb-4 group cursor-pointer"
-            >
-              <div className="relative w-9 h-9 flex items-center justify-center">
-                <img
-                  src="/logo.png"
-                  alt="DeltaWaveX Logo"
-                  className="w-full h-full object-contain filter brightness-[1.6] saturate-[1.5] transition-all duration-300 group-hover:filter-none group-hover:scale-105"
-                />
-              </div>
-              <span className="font-bold text-xl tracking-tight select-none">
-                <span className="text-white group-hover:text-[#444e58] transition-colors duration-300">DeltaWave</span>
-                <span className="text-emerald-400 group-hover:text-[#235633] transition-colors duration-300">X</span>
-              </span>
-            </motion.div>
+            <Link href="/" className="inline-block">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex items-center mb-4 group cursor-pointer"
+              >
+                <span className="font-bold text-xl tracking-tight select-none">
+                  <span className="text-white group-hover:text-[#444e58] transition-colors duration-300">DeltaWave</span>
+                  <span className="text-emerald-400 group-hover:text-[#235633] transition-colors duration-300">X</span>
+                </span>
+              </motion.div>
+            </Link>
             <p className="text-slate-500 text-sm leading-relaxed max-w-xs mb-6">
               Building products that scale. We are a premium technology company and product studio helping startups and businesses build world-class digital products.
             </p>

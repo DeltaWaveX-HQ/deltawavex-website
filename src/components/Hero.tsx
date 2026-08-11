@@ -20,7 +20,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-transparent"
     >
       {/* ======================== BACKGROUND ======================== */}
 
@@ -211,6 +211,7 @@ export default function Hero() {
           <motion.a
             href="#contact"
             id="hero-start-project"
+            data-cursor="magnetic"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-white font-bold text-base relative overflow-hidden"
@@ -234,6 +235,7 @@ export default function Hero() {
           <motion.a
             href="#products"
             id="hero-explore-work"
+            data-cursor="magnetic"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-white font-semibold text-base transition-all duration-300"

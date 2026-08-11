@@ -6,7 +6,6 @@ import { auth } from "@/lib/firebase/client";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Lock, Mail, AlertCircle } from "lucide-react";
-import Image from "next/image";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -23,7 +22,7 @@ export default function AdminLogin() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin");
-    } catch (err: any) {
+    } catch {
       setError("Invalid email or password.");
     } finally {
       setLoading(false);

@@ -9,10 +9,14 @@ import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import SceneSection from "@/components/SceneSection";
+import ThreeCanvas from "@/components/three/ThreeCanvas";
 
 export default function Home() {
   return (
-    <main className="bg-slate-950 min-h-screen">
+    <main className="bg-slate-950 min-h-screen relative overflow-hidden">
+      {/* Persistent Three.js 3D Visual & Interactive Layer */}
+      <ThreeCanvas />
+
       <Navbar />
 
       {/* Hero — starts visible, recedes into depth as you scroll */}

@@ -28,28 +28,33 @@ export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    let isMounted = true;
+    const fetchPosts = async () => {
+      try {
+        const q = query(
+          collection(db, "blogs"),
+          where("status", "==", "published"),
+          orderBy("createdAt", "desc")
+        );
+        const snapshot = await getDocs(q);
+        if (!isMounted) return;
+        const blogPosts = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as BlogPost[];
+        setPosts(blogPosts);
+      } catch (error) {
+        console.error("Error fetching blog posts:", error);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
 
-  const fetchPosts = async () => {
-    try {
-      const q = query(
-        collection(db, "blogs"),
-        where("status", "==", "published"),
-        orderBy("createdAt", "desc")
-      );
-      const snapshot = await getDocs(q);
-      const blogPosts = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as BlogPost[];
-      setPosts(blogPosts);
-    } catch (error) {
-      console.error("Error fetching blog posts:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchPosts();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const categories = ["All", ...Array.from(new Set(posts.map((p) => p.category)))];
   const filteredPosts =

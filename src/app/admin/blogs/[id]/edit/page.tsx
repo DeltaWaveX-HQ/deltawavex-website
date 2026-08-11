@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
@@ -36,11 +36,8 @@ export default function EditBlog() {
   const [seoDesc, setSeoDesc] = useState("");
   const [metaKeywords, setMetaKeywords] = useState("");
 
-  useEffect(() => {
-    if (blogId) fetchBlog();
-  }, [blogId]);
-
-  const fetchBlog = async () => {
+  const fetchBlog = useCallback(async () => {
+    if (!blogId) return;
     try {
       const docRef = doc(db, "blogs", blogId);
       const docSnap = await getDoc(docRef);
@@ -69,7 +66,21 @@ export default function EditBlog() {
     } finally {
       setPageLoading(false);
     }
-  };
+  }, [blogId, router]);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (blogId) {
+      void (async () => {
+        if (isMounted) {
+          await fetchBlog();
+        }
+      })();
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [blogId, fetchBlog]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;

@@ -8,8 +8,17 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface BlogItem {
+  id: string;
+  title: string;
+  category?: string;
+  status?: string;
+  createdAt?: { seconds: number; toDate?: () => Date };
+  [key: string]: unknown;
+}
+
 export default function BlogsPage() {
-  const [blogs, setBlogs] = useState<any[]>([]);
+  const [blogs, setBlogs] = useState<BlogItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; title: string } | null>(null);
@@ -21,7 +30,7 @@ export default function BlogsPage() {
       const posts = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
+      })) as BlogItem[];
       setBlogs(posts);
       setLoading(false);
     });
@@ -181,7 +190,7 @@ export default function BlogsPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      {blog.createdAt ? format(blog.createdAt.toDate(), 'MMM dd, yyyy') : 'Unknown'}
+                      {blog.createdAt?.toDate ? format(blog.createdAt.toDate(), 'MMM dd, yyyy') : (blog.createdAt?.seconds ? format(new Date(blog.createdAt.seconds * 1000), 'MMM dd, yyyy') : 'Unknown')}
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">

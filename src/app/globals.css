@@ -285,3 +285,31 @@
   background: rgba(37, 99, 235, 0.3);
   color: #fff;
 }
+
+/* === CUSTOM CURSOR === */
+@media (pointer: fine) and (hover: hover) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+
+  /* Restore text cursor inside inputs/textareas for usability */
+  .custom-cursor-active input,
+  .custom-cursor-active textarea,
+  .custom-cursor-active [contenteditable="true"] {
+    caret-color: #06B6D4;
+  }
+}
+
+/* Disable custom cursor entirely on touch / reduced-motion */
+@media (pointer: coarse), (hover: none) {
+  .custom-cursor-wrapper {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor-wrapper div {
+    transition: none !important;
+  }
+}

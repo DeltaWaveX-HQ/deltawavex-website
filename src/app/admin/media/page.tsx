@@ -44,45 +44,48 @@ export default function MediaLibrary() {
   const [progress, setProgress] = useState(0);
   const [toast, setToast] = useState<ToastState>({ show: false, message: "", type: "success" });
 
-  useEffect(() => {
-    if (user) {
-      fetchMedia();
-    }
-  }, [user]);
-
   const showToast = (message: string, type: "success" | "error" = "success") => {
     setToast({ show: true, message, type });
     setTimeout(() => setToast({ show: false, message: "", type: "success" }), 3000);
   };
 
-  const fetchMedia = async () => {
-    setLoading(true);
-    try {
-      const listRef = ref(storage, "media");
-      const res = await listAll(listRef);
-      
-      const items = await Promise.all(
-        res.items.map(async (itemRef) => {
-          const url = await getDownloadURL(itemRef);
-          return {
-            name: itemRef.name,
-            url,
-            ref: itemRef
-          };
-        })
-      );
-      
-      // Sort newest first by name if using Date.now() prefix
-      items.sort((a, b) => b.name.localeCompare(a.name));
-      
-      setMediaList(items);
-    } catch (error) {
-      console.error("Error fetching media", error);
-      showToast("Failed to load media files", "error");
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    let isMounted = true;
+    const fetchMedia = async () => {
+      setLoading(true);
+      try {
+        const listRef = ref(storage, "media");
+        const res = await listAll(listRef);
+        
+        const items = await Promise.all(
+          res.items.map(async (itemRef) => {
+            const url = await getDownloadURL(itemRef);
+            return {
+              name: itemRef.name,
+              url,
+              ref: itemRef,
+            };
+          })
+        );
+        
+        items.sort((a, b) => b.name.localeCompare(a.name));
+        if (isMounted) setMediaList(items);
+      } catch (error) {
+        console.error("Error fetching media", error);
+        if (isMounted) showToast("Failed to load media files", "error");
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    if (user) {
+      fetchMedia();
     }
-  };
+
+    return () => {
+      isMounted = false;
+    };
+  }, [user]);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

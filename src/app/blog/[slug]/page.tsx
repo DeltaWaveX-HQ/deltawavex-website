@@ -35,31 +35,37 @@ export default function BlogPostPage() {
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    if (slug) fetchPost();
-  }, [slug]);
+    let isMounted = true;
+    const fetchPost = async () => {
+      try {
+        const q = query(
+          collection(db, "blogs"),
+          where("slug", "==", slug),
+          where("status", "==", "published")
+        );
+        const snapshot = await getDocs(q);
 
-  const fetchPost = async () => {
-    try {
-      const q = query(
-        collection(db, "blogs"),
-        where("slug", "==", slug),
-        where("status", "==", "published")
-      );
-      const snapshot = await getDocs(q);
-
-      if (snapshot.empty) {
-        setNotFound(true);
-      } else {
-        const doc = snapshot.docs[0];
-        setPost({ id: doc.id, ...doc.data() } as BlogPost);
+        if (!isMounted) return;
+        if (snapshot.empty) {
+          setNotFound(true);
+        } else {
+          const doc = snapshot.docs[0];
+          setPost({ id: doc.id, ...doc.data() } as BlogPost);
+        }
+      } catch (error) {
+        console.error("Error fetching blog post:", error);
+        if (isMounted) setNotFound(true);
+      } finally {
+        if (isMounted) setLoading(false);
       }
-    } catch (error) {
-      console.error("Error fetching blog post:", error);
-      setNotFound(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    if (slug) fetchPost();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [slug]);
 
   const formatDate = (timestamp: { seconds: number } | null) => {
     if (!timestamp) return "";
