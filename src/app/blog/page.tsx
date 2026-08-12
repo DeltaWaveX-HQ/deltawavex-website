@@ -35,9 +35,24 @@ export default function BlogPage() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Blog Subscriber",
+          email: email.trim(),
+          softwareType: "Blog Launch Subscription",
+          details: "Subscriber requested email notification when DeltaWaveX Insights technical articles launch.",
+          sourcePage: "Blog Page",
+        }),
+      });
+    } catch (err) {
+      console.error("Blog subscribe error:", err);
+    }
     setSubscribed(true);
     setEmail("");
   };

@@ -63,6 +63,28 @@ const products = [
       { label: "Database", value: "Supabase" },
     ],
   },
+  {
+    name: "Cortex",
+    tagline: "On-Device AI Assistant",
+    description:
+      "Privacy-first local AI assistant running full language models on-device with zero server latency or data transit.",
+    emoji: "🧠",
+    logo: "/images/cortex-logo.png",
+    features: [
+      "100% On-Device AI",
+      "Zero Server Transit",
+      "Offline LLM Engine",
+    ],
+    gradient: "135deg, #8B5CF6 0%, #A855F7 50%, #6366F1 100%",
+    glowColor: "rgba(139, 92, 246, 0.35)",
+    accentRgb: "139, 92, 246",
+    badgeBg: "linear-gradient(135deg, #8B5CF6, #A855F7)",
+    stats: [
+      { label: "Privacy", value: "Local" },
+      { label: "Token Cost", value: "$0" },
+      { label: "Engine", value: "Offline" },
+    ],
+  },
 ];
 
 export default function Products() {
@@ -104,13 +126,12 @@ export default function Products() {
             <span className="gradient-text">Launched</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            From marketplaces to SaaS platforms — real products shipped for
-            real businesses.
+            From marketplaces to SaaS platforms & on-device AI — real products shipped for real businesses.
           </p>
         </motion.div>
 
         {/* Product Cards */}
-        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
           {products.map((product, index) => (
             <motion.div
               key={product.name}

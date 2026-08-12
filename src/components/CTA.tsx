@@ -91,7 +91,7 @@ export default function CTA({ defaultService = "" }: CTAProps) {
     return errors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError(null);
     const errors = validateForm();
@@ -102,11 +102,31 @@ export default function CTA({ defaultService = "" }: CTAProps) {
     setFormErrors({});
     setIsSubmitting(true);
 
-    // Simulate reliable API submission
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          softwareType: formData.softwareType,
+          details: formData.details,
+          sourcePage: typeof window !== "undefined" ? window.location.href : "Main Website",
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Form submission failed");
+      }
+
       setIsSubmitting(false);
       setIsSuccess(true);
-    }, 1200);
+    } catch (err) {
+      console.error("Contact submission error:", err);
+      setIsSubmitting(false);
+      setSubmitError("Unable to send message right now. Please try again or email info@deltawavex.com directly.");
+    }
   };
 
   const resetForm = () => {

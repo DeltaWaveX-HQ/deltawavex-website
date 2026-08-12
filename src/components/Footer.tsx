@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 
 const navSections = {
   Company: [
@@ -16,6 +15,14 @@ const navSections = {
     { label: "Web Development", href: "/services/web-development" },
     { label: "SaaS Development", href: "/services/saas-development" },
     { label: "AI Solutions", href: "/services/ai-machine-learning" },
+  ],
+  Industries: [
+    { label: "Healthcare & Medical", href: "/#services" },
+    { label: "Logistics & Distribution", href: "/#services" },
+    { label: "Professional Services", href: "/#services" },
+    { label: "Education", href: "/#services" },
+    { label: "Real Estate", href: "/#services" },
+    { label: "Science & Research", href: "/#services" },
   ],
 };
 
@@ -58,7 +65,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
           {/* Column 1 — Brand */}
-          <div className="lg:col-span-4 flex flex-col justify-between">
+          <div className="lg:col-span-3 flex flex-col justify-between">
             <div>
               <Link href="/" className="inline-block">
                 <motion.div
@@ -68,12 +75,8 @@ export default function Footer() {
                   className="flex items-center mb-4 group cursor-pointer"
                 >
                   <span className="font-bold text-xl tracking-tight select-none">
-                    <span className="text-white group-hover:text-slate-300 transition-colors duration-300">
-                      DeltaWave
-                    </span>
-                    <span className="text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300">
-                      X
-                    </span>
+                    <span className="text-white group-hover:text-[#444e58] transition-colors duration-300">DeltaWave</span>
+                    <span className="text-emerald-400 group-hover:text-[#235633] transition-colors duration-300">X</span>
                   </span>
                 </motion.div>
               </Link>
@@ -102,7 +105,7 @@ export default function Footer() {
           </div>
 
           {/* Column 2 — Company */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <h4 className="text-white font-bold text-sm mb-4 tracking-wide">Company</h4>
             <ul className="space-y-3">
               {navSections.Company.map((link) => (
@@ -135,36 +138,21 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 — Start a Project CTA */}
+          {/* Column 4 — Industries */}
           <div className="lg:col-span-3">
-            <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-5 backdrop-blur-sm flex flex-col justify-between h-full">
-              <div>
-                <h4 className="text-white font-bold text-sm mb-2">
-                  Let&apos;s Build Something Great
-                </h4>
-                <p className="text-slate-400 text-xs leading-relaxed mb-5">
-                  Have a product idea or need a technical partner? Let&apos;s turn your vision into a scalable product.
-                </p>
-              </div>
-
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const el = document.getElementById("contact");
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth" });
-                    window.location.hash = "#contact";
-                  } else {
-                    window.location.href = "/#contact";
-                  }
-                }}
-                className="inline-flex items-center justify-between px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-xs transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 group"
-              >
-                <span>Start a Project</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
+            <h4 className="text-white font-bold text-sm mb-4 tracking-wide">Industries</h4>
+            <ul className="space-y-3">
+              {navSections.Industries.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-slate-400 hover:text-cyan-400 text-sm transition-colors duration-200"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 

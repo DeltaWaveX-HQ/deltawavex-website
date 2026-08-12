@@ -91,6 +91,14 @@ export const REAL_PROJECTS = {
     techs: ["Next.js", "Django REST", "Supabase", "PostgreSQL"],
     gradient: "from-emerald-600 to-cyan-500",
   },
+  cortex: {
+    name: "Cortex",
+    tagline: "On-Device AI Assistant",
+    description: "Privacy-first local AI assistant running full LLM models directly on-device with zero server latency or data transit.",
+    features: ["100% On-Device AI", "Zero Server Transit", "Offline LLM Engine"],
+    techs: ["CoreML", "On-Device LLM", "Swift", "C++"],
+    gradient: "from-purple-600 to-indigo-500",
+  },
 };
 
 export const serviceDataMap: Record<string, ServiceConfig> = {
