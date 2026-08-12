@@ -38,6 +38,16 @@ export default function ServiceCTA({ accentColor }: ServiceCTAProps) {
             <a
               href="#contact"
               data-cursor="magnetic"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("contact");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                  window.location.hash = "#contact";
+                } else {
+                  window.location.href = "/#contact";
+                }
+              }}
               className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-bold text-base text-white transition-all duration-300 shadow-xl hover:shadow-cyan-500/20"
               style={{
                 background: "linear-gradient(135deg, #2563EB 0%, #06B6D4 100%)",

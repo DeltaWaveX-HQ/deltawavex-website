@@ -2,7 +2,8 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { CheckCircle2, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { CheckCircle2 } from "lucide-react";
 
 const products = [
   {
@@ -11,6 +12,7 @@ const products = [
     description:
       "Premium home services marketplace connecting customers with trusted professionals for every home need.",
     emoji: "🏠",
+    logo: "/images/zomico-logo.jpg",
     features: ["Customer App", "Technician App", "Admin Dashboard"],
     gradient: "135deg, #2563EB 0%, #06B6D4 50%, #2563EB 100%",
     glowColor: "rgba(37, 99, 235, 0.35)",
@@ -28,11 +30,12 @@ const products = [
     description:
       "Discover and book talented photographers for events, portraits, weddings, and professional shoots.",
     emoji: "📸",
+    logo: "/images/shootkaro-logo.png",
     features: ["Photographer Discovery", "Booking System", "Event Scheduling"],
-    gradient: "135deg, #7C3AED 0%, #EC4899 50%, #7C3AED 100%",
-    glowColor: "rgba(139, 92, 246, 0.35)",
-    accentRgb: "139, 92, 246",
-    badgeBg: "linear-gradient(135deg, #7C3AED, #EC4899)",
+    gradient: "135deg, #EAB308 0%, #F59E0B 50%, #CA8A04 100%",
+    glowColor: "rgba(234, 179, 8, 0.35)",
+    accentRgb: "234, 179, 8",
+    badgeBg: "linear-gradient(135deg, #EAB308, #F59E0B)",
     stats: [
       { label: "Categories", value: "10+" },
       { label: "Booking Flow", value: "Smart" },
@@ -41,19 +44,23 @@ const products = [
   },
   {
     name: "Inventory Pro",
-    tagline: "Business Inventory Software",
+    tagline: "Retail & Wholesale Billing",
     description:
-      "Powerful inventory and billing software for warehouses, retailers, and small businesses to manage stock seamlessly.",
+      "Full-stack POS and billing platform built for retail, wholesale, and hybrid business operations.",
     emoji: "📦",
-    features: ["Excel Import/Export", "Stock Tracking", "Billing Management"],
+    features: [
+      "Retail & Wholesale",
+      "POS Barcode System",
+      "Analytics & Expenses",
+    ],
     gradient: "135deg, #059669 0%, #06B6D4 50%, #059669 100%",
     glowColor: "rgba(16, 185, 129, 0.35)",
     accentRgb: "16, 185, 129",
     badgeBg: "linear-gradient(135deg, #059669, #06B6D4)",
     stats: [
-      { label: "Reports", value: "Auto" },
-      { label: "Import", value: "Excel" },
-      { label: "Tracking", value: "Live" },
+      { label: "Billing Modes", value: "3 Types" },
+      { label: "Backend", value: "Django" },
+      { label: "Database", value: "Supabase" },
     ],
   },
 ];
@@ -164,10 +171,22 @@ export default function Products() {
                     }}
                   />
 
-                  {/* Emoji with glow */}
-                  <div className="text-5xl mb-5 drop-shadow-lg filter">
-                    {product.emoji}
-                  </div>
+                  {/* Logo or Emoji */}
+                  {product.logo ? (
+                    <div className="relative w-16 h-16 mb-5 rounded-2xl overflow-hidden shadow-xl border border-white/10 group-hover:scale-105 transition-transform duration-300">
+                      <Image
+                        src={product.logo}
+                        alt={product.name}
+                        fill
+                        sizes="64px"
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-5xl mb-5 drop-shadow-lg filter">
+                      {product.emoji}
+                    </div>
+                  )}
 
                   {/* Name */}
                   <h3 className="text-2xl font-black text-white mb-2">
@@ -221,10 +240,7 @@ export default function Products() {
                       <div
                         className="font-black text-lg"
                         style={{
-                          background: `linear-gradient(${product.gradient})`,
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
+                          color: `rgb(${product.accentRgb})`,
                         }}
                       >
                         {stat.value}
@@ -232,15 +248,6 @@ export default function Products() {
                       <div className="text-slate-600 text-xs mt-0.5">{stat.label}</div>
                     </div>
                   ))}
-                </div>
-
-                {/* View Project link */}
-                <div
-                  className="px-8 pb-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0"
-                  style={{ color: `rgba(${product.accentRgb}, 1)` }}
-                >
-                  <span className="text-xs font-bold tracking-wide">View Project</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </div>
 
                 {/* Large hover glow overlay */}

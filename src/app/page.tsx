@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Products from "@/components/Products";
-import Technologies from "@/components/Technologies";
 import Process from "@/components/Process";
 import WhyUs from "@/components/WhyUs";
 import Testimonials from "@/components/Testimonials";
@@ -24,32 +23,33 @@ export default function Home() {
         <Hero />
       </SceneSection>
 
-      {/* Each section enters from below and recedes when you scroll past */}
+      {/* Services Built for Scale */}
       <SceneSection zIndex={2}>
         <Services />
       </SceneSection>
 
+      {/* Products & Projects */}
       <SceneSection zIndex={3}>
         <Products />
       </SceneSection>
 
-      <SceneSection zIndex={4}>
-        <Technologies />
-      </SceneSection>
-
-      <div className="relative z-[5]">
+      {/* Development Process */}
+      <div className="relative z-[4]">
         <Process />
       </div>
 
-      <SceneSection zIndex={6}>
+      {/* Why Choose DeltaWaveX */}
+      <SceneSection zIndex={5}>
         <WhyUs />
       </SceneSection>
 
-      <SceneSection zIndex={7}>
+      {/* Testimonials */}
+      <SceneSection zIndex={6}>
         <Testimonials />
       </SceneSection>
 
-      <SceneSection zIndex={8}>
+      {/* Contact Form CTA */}
+      <SceneSection zIndex={7}>
         <CTA />
       </SceneSection>
 

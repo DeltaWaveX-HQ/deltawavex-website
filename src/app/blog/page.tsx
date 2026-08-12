@@ -1,225 +1,197 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase/client";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, ArrowRight, Tag, Loader2, ArrowLeft } from "lucide-react";
+import { ArrowLeft, Sparkles, Send, CheckCircle2, BookOpen, Cpu, Layers, Smartphone } from "lucide-react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  summary: string;
-  category: string;
-  tags: string[];
-  coverImage: string;
-  authorEmail: string;
-  readingTime: number;
-  createdAt: { seconds: number; nanoseconds: number } | null;
-}
+const previewTopics = [
+  {
+    icon: Cpu,
+    category: "AI & ML ENGINEERING",
+    title: "Building Production-Ready LLM Agents for Enterprise Workflows",
+    desc: "A deep dive into prompt pipelines, vector databases, and real-time streaming architectures.",
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: Layers,
+    category: "FULL-STACK ARCHITECTURE",
+    title: "Scaling Multi-Tenant SaaS Systems with Next.js & Supabase",
+    desc: "Best practices for tenant isolation, database partitioning, and real-time synchronization.",
+    color: "from-purple-500 to-indigo-500",
+  },
+  {
+    icon: Smartphone,
+    category: "MOBILE ENGINEERING",
+    title: "Achieving Fluid 60FPS UI & Offline-First Data Sync",
+    desc: "Engineering high-performance mobile apps with React Native, Flutter, and background queues.",
+    color: "from-emerald-500 to-teal-500",
+  },
+];
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true;
-    const fetchPosts = async () => {
-      try {
-        const q = query(
-          collection(db, "blogs"),
-          where("status", "==", "published"),
-          orderBy("createdAt", "desc")
-        );
-        const snapshot = await getDocs(q);
-        if (!isMounted) return;
-        const blogPosts = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as BlogPost[];
-        setPosts(blogPosts);
-      } catch (error) {
-        console.error("Error fetching blog posts:", error);
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-
-    fetchPosts();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const categories = ["All", ...Array.from(new Set(posts.map((p) => p.category)))];
-  const filteredPosts =
-    selectedCategory === "All"
-      ? posts
-      : posts.filter((p) => p.category === selectedCategory);
-
-  const formatDate = (timestamp: { seconds: number } | null) => {
-    if (!timestamp) return "";
-    return new Date(timestamp.seconds * 1000).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setSubscribed(true);
+    setEmail("");
   };
 
   return (
-    <main className="bg-slate-950 min-h-screen">
+    <main className="bg-slate-950 min-h-screen text-white relative selection:bg-cyan-500/30">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6 lg:px-8 overflow-hidden">
+      {/* Hero Atmosphere */}
+      <section className="relative pt-36 pb-24 px-6 lg:px-8 overflow-hidden min-h-[85vh] flex flex-col justify-center">
         {/* Background glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] pointer-events-none opacity-20 blur-[140px]"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(37, 99, 235, 0.3) 0%, rgba(6, 182, 212, 0.15) 50%, transparent 70%)",
+          }}
+        />
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex items-center gap-3 mb-6">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          {/* Back to Home link */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-8"
+          >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm"
+              className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400 hover:text-cyan-400 transition-colors group"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Home
+              <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+              Back to Home
             </Link>
-            <span className="text-slate-600">/</span>
-            <span className="text-slate-400 text-sm">Blog</span>
-          </div>
+          </motion.div>
 
+          {/* Pill Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase bg-slate-900/90 border border-cyan-500/30 shadow-lg">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>INSIGHTS & ENGINEERING ARTICLES</span>
+            </span>
+          </motion.div>
+
+          {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight mb-6"
           >
-            Our <span className="gradient-text">Blog</span>
+            DeltaWaveX Insights <br />
+            <span className="gradient-text">Coming Soon</span>
           </motion.h1>
+
+          {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-xl text-slate-400 max-w-2xl"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-10 font-normal"
           >
-            Insights, tutorials, and updates from the DeltaWaveX team.
+            We&apos;re preparing in-depth technical guides, engineering breakdown articles, and product case studies on AI systems, scalable full-stack architecture, and mobile development.
           </motion.p>
 
-          {/* Category Filter */}
-          {categories.length > 1 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex flex-wrap gap-2 mt-8"
-            >
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    selectedCategory === cat
-                      ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                      : "bg-white/5 text-slate-400 border border-white/5 hover:bg-white/10 hover:text-white"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </motion.div>
-          )}
-        </div>
-      </section>
-
-      {/* Blog Grid */}
-      <section className="px-6 lg:px-8 pb-24">
-        <div className="max-w-7xl mx-auto">
-          {loading ? (
-            <div className="flex justify-center items-center py-32">
-              <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
-            </div>
-          ) : filteredPosts.length === 0 ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-32"
-            >
-              <div className="w-20 h-20 rounded-full bg-slate-800/50 flex items-center justify-center mx-auto mb-6">
-                <Tag className="w-10 h-10 text-slate-600" />
+          {/* Email Subscription Notification Form */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="max-w-md mx-auto mb-16"
+          >
+            {subscribed ? (
+              <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center gap-3 text-emerald-400">
+                <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+                <span className="text-sm font-semibold">
+                  You&apos;re on the list! We&apos;ll notify you when articles launch.
+                </span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">No posts yet</h3>
-              <p className="text-slate-500">Check back soon for new content!</p>
-            </motion.div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPosts.map((post, i) => (
-                <motion.article
-                  key={post.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email address..."
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all"
+                />
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all duration-300 shadow-lg hover:shadow-cyan-500/20 shrink-0"
+                  style={{
+                    background: "linear-gradient(135deg, #2563EB 0%, #06B6D4 100%)",
+                  }}
                 >
-                  <Link href={`/blog/${post.slug}`} className="group block">
-                    <div className="glass-card rounded-2xl overflow-hidden border border-white/5 hover:border-blue-500/30 transition-all duration-300 h-full flex flex-col">
-                      {/* Cover Image */}
-                      {post.coverImage && (
-                        <div className="aspect-video overflow-hidden">
-                          <img
-                            src={post.coverImage}
-                            alt={post.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                            loading="lazy"
-                          />
-                        </div>
-                      )}
+                  <span>Notify Me</span>
+                  <Send className="w-4 h-4" />
+                </button>
+              </form>
+            )}
+          </motion.div>
 
-                      {/* Content */}
-                      <div className="p-6 flex flex-col flex-1">
-                        {/* Category & Date */}
-                        <div className="flex items-center gap-3 mb-3">
-                          <span className="text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full">
-                            {post.category}
-                          </span>
-                          {post.createdAt && (
-                            <span className="text-xs text-slate-500">
-                              {formatDate(post.createdAt)}
-                            </span>
-                          )}
-                        </div>
-
-                        <h2 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">
-                          {post.title}
-                        </h2>
-
-                        {post.summary && (
-                          <p className="text-slate-400 text-sm line-clamp-3 mb-4 flex-1">
-                            {post.summary}
-                          </p>
-                        )}
-
-                        {/* Footer */}
-                        <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                          <div className="flex items-center gap-2 text-slate-500 text-sm">
-                            <Clock className="w-4 h-4" />
-                            {post.readingTime || 1} min read
-                          </div>
-                          <span className="inline-flex items-center gap-1 text-sm text-blue-400 font-medium group-hover:gap-2 transition-all">
-                            Read more
-                            <ArrowRight className="w-4 h-4" />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.article>
-              ))}
+          {/* Topic Preview Grid Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="pt-10 border-t border-slate-800/80 text-left"
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <BookOpen className="w-4 h-4 text-cyan-400" />
+              <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+                UPCOMING TECHNICAL TOPICS
+              </span>
             </div>
-          )}
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {previewTopics.map((topic, idx) => {
+                const Icon = topic.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${topic.color} flex items-center justify-center text-white`}>
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+                          COMING SOON
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest block mb-1">
+                        {topic.category}
+                      </span>
+                      <h3 className="text-sm font-bold text-white mb-2 leading-snug">
+                        {topic.title}
+                      </h3>
+                      <p className="text-xs text-slate-400 leading-relaxed">
+                        {topic.desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
         </div>
       </section>
 

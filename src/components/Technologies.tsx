@@ -1,100 +1,127 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import Image from "next/image";
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
+import {
+  Brain,
+  Globe,
+  Smartphone,
+  Cloud,
+  Layers,
+  Network,
+  Sparkles,
+  CheckCircle2,
+} from "lucide-react";
 
-const techStack = [
+interface NodeData {
+  id: string;
+  label: string;
+  sublabel: string;
+  icon: typeof Brain;
+  xPct: number; // Hexagonal coordinates for 6 nodes
+  yPct: number;
+  color: string;
+  glowColor: string;
+}
+
+const capabilityNodes: NodeData[] = [
   {
-    category: "Frontend",
-    color: "from-blue-500 to-cyan-500",
-    hoverBorder: "hover:border-blue-500/35",
-    accentColor: "group-hover:text-blue-400",
-    techs: [
-      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", desc: "UI Library" },
-      { name: "Next.js", icon: "/next.svg", desc: "Web Framework", invert: true },
-      { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg", desc: "Type-safe Development" },
-      { name: "Flutter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg", desc: "Mobile Apps" },
-      { name: "React Native", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", desc: "Cross Platform" },
-    ],
+    id: "ai-ml",
+    label: "AI & ML",
+    sublabel: "LLMs, Automation & Predictive Models",
+    icon: Brain,
+    xPct: 50,
+    yPct: 10,
+    color: "from-indigo-600 to-purple-500",
+    glowColor: "rgba(139, 92, 246, 0.35)",
   },
   {
-    category: "Backend",
-    color: "from-purple-500 to-violet-500",
-    hoverBorder: "hover:border-purple-500/35",
-    accentColor: "group-hover:text-purple-400",
-    techs: [
-      { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg", desc: "Runtime" },
-      { name: "Express.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg", desc: "API Framework", invert: true },
-      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg", desc: "Database" },
-      { name: "Prisma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg", desc: "ORM", invert: true },
-      { name: "Firebase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg", desc: "Backend Services" },
-    ],
+    id: "cloud-devops",
+    label: "Cloud & DevOps",
+    sublabel: "CI/CD & Scalable Infrastructure",
+    icon: Cloud,
+    xPct: 82,
+    yPct: 25,
+    color: "from-blue-600 to-cyan-500",
+    glowColor: "rgba(6, 182, 212, 0.35)",
   },
   {
-    category: "AI / ML",
-    color: "from-pink-500 to-rose-500",
-    hoverBorder: "hover:border-pink-500/35",
-    accentColor: "group-hover:text-pink-400",
-    techs: [
-      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", desc: "AI & ML" },
-      { name: "TensorFlow", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg", desc: "ML Framework" },
-      { name: "scikit-learn", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg", desc: "Machine Learning" },
-      { name: "OpenAI APIs", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/openai.svg", desc: "Generative AI", invert: true },
-      { name: "Gemini APIs", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/googlegemini.svg", desc: "Generative AI", invert: true },
-    ],
+    id: "saas-products",
+    label: "SaaS Products",
+    sublabel: "Multi-Tenant Cloud Platforms",
+    icon: Layers,
+    xPct: 82,
+    yPct: 75,
+    color: "from-cyan-600 to-blue-500",
+    glowColor: "rgba(37, 99, 235, 0.35)",
   },
   {
-    category: "Cloud & DevOps",
-    color: "from-emerald-500 to-teal-500",
-    hoverBorder: "hover:border-emerald-500/35",
-    accentColor: "group-hover:text-emerald-400",
-    techs: [
-      { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", desc: "Cloud Platform", invert: true },
-      { name: "Firebase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg", desc: "Cloud Backend" },
-      { name: "Vercel", icon: "/vercel.svg", desc: "Edge Deployment", invert: true },
-      { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg", desc: "Containerization" },
-      { name: "CI/CD", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg", desc: "Automated Deployment" },
-    ],
+    id: "apis-integrations",
+    label: "APIs & Integrations",
+    sublabel: "Enterprise Gateways & Microservices",
+    icon: Network,
+    xPct: 50,
+    yPct: 90,
+    color: "from-blue-500 to-indigo-600",
+    glowColor: "rgba(59, 130, 246, 0.35)",
+  },
+  {
+    id: "mobile-apps",
+    label: "Mobile Apps",
+    sublabel: "Native iOS, Android & Cross-Platform",
+    icon: Smartphone,
+    xPct: 18,
+    yPct: 75,
+    color: "from-purple-600 to-indigo-500",
+    glowColor: "rgba(147, 51, 234, 0.35)",
+  },
+  {
+    id: "web-platforms",
+    label: "Web Platforms",
+    sublabel: "High-Performance Modern Web Apps",
+    icon: Globe,
+    xPct: 18,
+    yPct: 25,
+    color: "from-cyan-500 to-blue-600",
+    glowColor: "rgba(6, 182, 212, 0.35)",
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.04 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: [0.21, 0.47, 0.32, 0.98] as const },
-  },
-};
+const techExamples = [
+  "React",
+  "Next.js",
+  "Node.js",
+  "Flutter",
+  "Python",
+  "PostgreSQL",
+  "Firebase",
+  "AWS",
+  "Docker",
+];
 
 export default function Technologies() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: false, margin: "-60px" });
+  const [activeNode, setActiveNode] = useState<string | null>(null);
+  const containerRef = useRef(null);
+
+  const activeData = capabilityNodes.find((n) => n.id === activeNode);
 
   return (
     <section
       id="technologies"
-      className="py-10 lg:py-14 bg-transparent relative overflow-hidden"
+      ref={containerRef}
+      className="py-16 lg:py-24 bg-transparent relative overflow-hidden"
     >
-      {/* Background grid */}
+      {/* Soft atmospheric background glow */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[500px] pointer-events-none opacity-15 blur-[120px]"
         style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
+          background:
+            "radial-gradient(ellipse at center, rgba(37, 99, 235, 0.2) 0%, rgba(6, 182, 212, 0.1) 50%, transparent 70%)",
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        {/* Header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -102,71 +129,207 @@ export default function Technologies() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12 lg:mb-16"
         >
-          <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase mb-3 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
-            TECH STACK
+          <span className="inline-flex items-center gap-2 text-[11px] font-mono font-bold tracking-[0.2em] uppercase mb-3 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>TECHNOLOGY ECOSYSTEM</span>
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
-            Powered by <span className="gradient-text">Modern Technologies</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+            Technology <span className="gradient-text">Without Limits</span>
           </h2>
           <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            We choose proven technologies to build fast, scalable, and maintainable digital products.
+            We choose the right technology for the problem — building scalable, reliable, and
+            future-ready digital products.
           </p>
         </motion.div>
 
-        {/* 4-Column Tech Grid */}
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6"
-        >
-          {techStack.map((stack) => (
-            <motion.div
-              key={stack.category}
-              variants={cardVariants}
-              className={`bg-slate-900/85 border border-white/5 ${stack.hoverBorder} rounded-2xl p-6 lg:p-7 backdrop-blur-md transition-all duration-250 ease-out shadow-md flex flex-col justify-between h-full group/card`}
-            >
-              {/* Category Header */}
-              <div>
-                <div className="mb-5">
-                  <div className={`inline-block text-[11px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full bg-gradient-to-r ${stack.color} text-white mb-3 shadow-sm`}>
-                    {stack.category}
-                  </div>
-                  <div className={`h-0.5 w-full bg-gradient-to-r ${stack.color} rounded-full opacity-30`} />
-                </div>
+        {/* ======================== DESKTOP & TABLET 6-NODE HEXAGONAL ECOSYSTEM ======================== */}
+        <div className="hidden sm:block relative w-full max-w-4xl mx-auto h-[480px] lg:h-[520px] my-4">
+          {/* SVG Connection Network Lines */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
+            {capabilityNodes.map((node) => {
+              const isActive = activeNode === node.id;
+              return (
+                <g key={node.id}>
+                  {/* Subtle Connection Line */}
+                  <line
+                    x1="50%"
+                    y1="50%"
+                    x2={`${node.xPct}%`}
+                    y2={`${node.yPct}%`}
+                    stroke={isActive ? "rgba(6, 182, 212, 0.75)" : "rgba(255, 255, 255, 0.1)"}
+                    strokeWidth={isActive ? "1.5" : "1"}
+                    strokeDasharray={isActive ? "none" : "3 3"}
+                    className="transition-colors duration-300"
+                  />
+                  {/* Traveling Pulse Circle */}
+                  <circle r={isActive ? "3" : "1.8"} fill={isActive ? "#06B6D4" : "#3B82F6"}>
+                    <animateMotion
+                      path={`M 50%,50% L ${node.xPct}%,${node.yPct}%`}
+                      dur={isActive ? "2s" : "4s"}
+                      repeatCount="indefinite"
+                    />
+                  </circle>
+                </g>
+              );
+            })}
+          </svg>
 
-                {/* Tech Items List */}
-                <div className="space-y-2">
-                  {stack.techs.map((tech) => (
-                    <div
-                      key={tech.name}
-                      tabIndex={0}
-                      className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-800/50 focus:bg-slate-800/50 transition-all duration-250 ease-out cursor-default transform hover:translate-x-[3px] focus:translate-x-[3px] focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400 motion-reduce:transform-none"
-                    >
-                      <div className="relative w-5 h-5 flex-shrink-0 flex items-center justify-center">
-                        <Image 
-                          src={tech.icon} 
-                          alt={tech.name} 
-                          fill
-                          sizes="20px"
-                          className="object-contain opacity-85 group-hover:opacity-100 transition-all duration-250 group-hover:scale-105 motion-reduce:transform-none" 
-                          style={{ filter: tech.invert ? 'brightness(0) invert(1)' : 'none' }}
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className={`text-white text-sm font-semibold leading-tight ${stack.accentColor} transition-colors duration-250 truncate`}>
-                          {tech.name}
-                        </div>
-                        <div className="text-slate-400 text-xs truncate mt-0.5">{tech.desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+          {/* Central Hub Node: DeltaWaveX */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+            <motion.div
+              animate={{
+                scale: [1, 1.03, 1],
+                boxShadow: [
+                  "0 0 20px rgba(37, 99, 235, 0.25)",
+                  "0 0 35px rgba(6, 182, 212, 0.4)",
+                  "0 0 20px rgba(37, 99, 235, 0.25)",
+                ],
+              }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="relative px-7 py-4.5 rounded-2xl bg-slate-950/95 border border-cyan-500/35 text-center shadow-2xl backdrop-blur-xl group cursor-default"
+            >
+              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400 mb-0.5">
+                DeltaWaveX
+              </div>
+              <div className="text-sm font-semibold text-slate-300 tracking-wide">
+                Solution-Focused Engineering
               </div>
             </motion.div>
-          ))}
-        </motion.div>
+          </div>
+
+          {/* 6 Capability Nodes */}
+          {capabilityNodes.map((node) => {
+            const Icon = node.icon;
+            const isActive = activeNode === node.id;
+
+            return (
+              <div
+                key={node.id}
+                onMouseEnter={() => setActiveNode(node.id)}
+                onMouseLeave={() => setActiveNode(null)}
+                className="absolute z-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer p-1.5"
+                style={{
+                  left: `${node.xPct}%`,
+                  top: `${node.yPct}%`,
+                }}
+              >
+                <div
+                  className={`px-4 py-3 rounded-xl bg-slate-900/90 border ${
+                    isActive
+                      ? "border-cyan-400 shadow-xl scale-105 -translate-y-1"
+                      : "border-white/10 hover:border-cyan-500/40"
+                  } backdrop-blur-md transition-all duration-300 flex items-center gap-3 min-w-[155px] lg:min-w-[180px]`}
+                  style={{
+                    boxShadow: isActive ? `0 8px 25px ${node.glowColor}` : "0 4px 16px rgba(0,0,0,0.3)",
+                  }}
+                >
+                  <div
+                    className={`w-8 h-8 rounded-lg bg-gradient-to-br ${node.color} flex items-center justify-center text-white flex-shrink-0 shadow-sm`}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-white text-xs lg:text-sm font-bold truncate">
+                      {node.label}
+                    </div>
+                    <div className="text-[10px] text-slate-400 truncate hidden lg:block">
+                      {node.sublabel}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ======================== MOBILE RESPONSIVE LAYOUT (320px - 430px) ======================== */}
+        <div className="block sm:hidden my-6">
+          {/* Central Hub Mobile Card */}
+          <div className="text-center mb-5">
+            <div className="inline-flex flex-col items-center p-3.5 rounded-2xl bg-slate-900/90 border border-cyan-500/35 shadow-xl">
+              <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest mb-0.5">
+                DeltaWaveX
+              </span>
+              <span className="text-xs font-semibold text-slate-300">
+                Solution-Focused Engineering
+              </span>
+            </div>
+          </div>
+
+          {/* 6-Node Grid */}
+          <div className="grid grid-cols-2 gap-3">
+            {capabilityNodes.map((node) => {
+              const Icon = node.icon;
+              return (
+                <div
+                  key={node.id}
+                  className="p-3 rounded-xl bg-slate-900/85 border border-white/10 flex flex-col justify-between"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${node.color} flex items-center justify-center text-white`}>
+                      <Icon className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-400/80 animate-pulse" />
+                  </div>
+                  <div>
+                    <div className="text-white text-xs font-bold leading-tight">{node.label}</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5 leading-tight truncate">{node.sublabel}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Fixed-Height Slot for Active Node Detail Banner to Prevent Layout Shifts & Flickering */}
+        <div className="hidden sm:flex items-center justify-center h-10 my-3">
+          <div
+            className={`flex items-center justify-center gap-2.5 p-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/25 max-w-lg w-full text-center transition-all duration-300 ${
+              activeData ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+            }`}
+          >
+            {activeData && (
+              <>
+                <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
+                <span className="text-xs text-slate-200 font-medium">
+                  <strong className="text-white font-bold">{activeData.label}:</strong> {activeData.sublabel}
+                </span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* ======================== SECONDARY TECHNOLOGY STRIP ======================== */}
+        <div className="mt-10 pt-8 border-t border-slate-800/80 text-center">
+          <p className="text-slate-400 text-xs font-medium tracking-wider uppercase mb-5">
+            Modern tools. The right technology for every product.
+          </p>
+
+          {/* Marquee Container */}
+          <div
+            className="overflow-hidden w-full"
+            style={{
+              maskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
+            }}
+          >
+            <div className="flex w-max animate-marquee whitespace-nowrap gap-3 sm:gap-4 py-1">
+              {[...techExamples, ...techExamples].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="px-3.5 py-1.5 rounded-xl bg-slate-900/70 border border-slate-800 text-slate-300 text-xs font-mono font-medium flex items-center gap-2 shrink-0"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/80" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-slate-500 text-[11px] mt-4 max-w-md mx-auto leading-relaxed">
+            Technology choices driven by your specific product requirements — not fixed stack limitations.
+          </p>
+        </div>
       </div>
     </section>
   );

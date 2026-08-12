@@ -85,10 +85,10 @@ export const REAL_PROJECTS = {
   },
   inventoryPro: {
     name: "Inventory Pro",
-    tagline: "Business Inventory Software",
-    description: "Enterprise inventory, stock tracking, and automated billing engine built for multi-location retail and warehouse operations.",
-    features: ["Automated Excel Sync", "Live Stock Tracking", "Multi-Tenant Billing"],
-    techs: ["Next.js", "Node.js", "PostgreSQL", "Prisma"],
+    tagline: "Dual-Tier Retail & Wholesale Billing System",
+    description: "Full-stack POS & billing engine supporting Retail, Wholesale & Hybrid invoicing with dynamic margin calculations, POS barcode scanning, and Supabase PostgreSQL inventory sync.",
+    features: ["Retail / Wholesale / Hybrid Modes", "POS Barcode Checkout", "Sales & Expense Analytics"],
+    techs: ["Next.js", "Django REST", "Supabase", "PostgreSQL"],
     gradient: "from-emerald-600 to-cyan-500",
   },
 };

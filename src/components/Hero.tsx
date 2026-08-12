@@ -213,6 +213,14 @@ export default function Hero() {
             href="#contact"
             id="hero-start-project"
             data-cursor="magnetic"
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.getElementById("contact");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+                window.location.hash = "#contact";
+              }
+            }}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.97 }}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl text-white font-bold text-base relative overflow-hidden"

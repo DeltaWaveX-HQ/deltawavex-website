@@ -1,15 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Send, User, Mail, Phone, Code, MessageSquare, Sparkles, Paperclip, CheckCircle2, AlertCircle } from "lucide-react";
 
-export default function CTA() {
+interface CTAProps {
+  defaultService?: string;
+}
+
+export default function CTA({ defaultService = "" }: CTAProps) {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
-    softwareType: "",
+    softwareType: defaultService,
     details: "",
   });
   const [file, setFile] = useState<File | null>(null);
@@ -18,6 +22,26 @@ export default function CTA() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isHighlighted, setIsHighlighted] = useState(false);
+
+
+
+  useEffect(() => {
+    const handleCheckHash = () => {
+      if (typeof window !== "undefined" && window.location.hash === "#contact") {
+        setIsHighlighted(true);
+        const nameInput = document.getElementById("cta-name");
+        if (nameInput) {
+          setTimeout(() => nameInput.focus(), 350);
+        }
+        setTimeout(() => setIsHighlighted(false), 2500);
+      }
+    };
+
+    handleCheckHash();
+    window.addEventListener("hashchange", handleCheckHash);
+    return () => window.removeEventListener("hashchange", handleCheckHash);
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -170,11 +194,26 @@ export default function CTA() {
 
           {/* Right Side: High-Readability Contact Form Card */}
           <motion.div
+            id="contact-form-card"
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="bg-slate-900/85 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-xl relative overflow-hidden"
+            animate={
+              isHighlighted
+                ? {
+                    scale: [1, 1.02, 1],
+                    boxShadow: [
+                      "0 0 0px rgba(6,182,212,0)",
+                      "0 0 50px rgba(6,182,212,0.45)",
+                      "0 0 20px rgba(6,182,212,0.2)",
+                    ],
+                  }
+                : {}
+            }
+            transition={{ duration: 0.8 }}
+            className={`bg-slate-900/85 border ${
+              isHighlighted ? "border-cyan-400 ring-2 ring-cyan-500/50" : "border-white/10"
+            } rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-xl relative overflow-hidden transition-colors duration-500`}
           >
             {isSuccess ? (
               /* Success State */

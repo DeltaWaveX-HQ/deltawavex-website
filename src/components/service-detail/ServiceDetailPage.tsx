@@ -6,11 +6,11 @@ import ServiceHero from "@/components/service-detail/ServiceHero";
 import EngineeringMetrics from "@/components/service-detail/EngineeringMetrics";
 import CapabilityGrid from "@/components/service-detail/CapabilityGrid";
 import ArchitectureDiagram from "@/components/service-detail/ArchitectureDiagram";
-import ServiceTechStack from "@/components/service-detail/ServiceTechStack";
 import ServiceProcess from "@/components/service-detail/ServiceProcess";
 import FeaturedProjects from "@/components/service-detail/FeaturedProjects";
 import ServiceWhyUs from "@/components/service-detail/ServiceWhyUs";
 import ServiceCTA from "@/components/service-detail/ServiceCTA";
+import CTA from "@/components/CTA";
 import { serviceDataMap } from "@/data/serviceData";
 import { notFound } from "next/navigation";
 
@@ -46,20 +46,20 @@ export default function ServiceDetailPage({ slug }: ServiceDetailPageProps) {
           accentColor={service.accentColor}
         />
 
-        {/* 5. Production Technology Stack */}
-        <ServiceTechStack techStack={service.techStack} accentColor={service.accentColor} />
-
-        {/* 6. Development Process Timeline */}
+        {/* 5. Development Process Timeline */}
         <ServiceProcess accentColor={service.accentColor} />
 
-        {/* 7. Featured Projects (hidden if no matching projects) */}
+        {/* 6. Featured Projects (hidden if no matching projects) */}
         <FeaturedProjects projects={service.projects} />
 
-        {/* 8. Why Teams Choose DeltaWaveX */}
+        {/* 7. Why Teams Choose DeltaWaveX */}
         <ServiceWhyUs accentColor={service.accentColor} />
 
-        {/* 9. Final CTA Section */}
+        {/* 8. Final CTA Section */}
         <ServiceCTA accentColor={service.accentColor} />
+
+        {/* 9. Interactive Contact Form */}
+        <CTA defaultService={service.visualType || service.slug} />
       </main>
 
       <Footer />

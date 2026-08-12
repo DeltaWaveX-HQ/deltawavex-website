@@ -7,7 +7,6 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Services", href: "/#services" },
-  { label: "Portfolio", href: "/#technologies" },
   { label: "Products", href: "/#products" },
   { label: "Process", href: "/#process" },
   { label: "Blog", href: "/blog" },
@@ -66,6 +65,16 @@ export default function Navbar() {
             <a
               href="#contact"
               data-cursor="magnetic"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("contact");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                  window.location.hash = "#contact";
+                } else {
+                  window.location.href = "/#contact";
+                }
+              }}
               className="px-5 py-2.5 text-sm font-semibold text-white rounded-xl gradient-bg hover:opacity-90 transition-opacity duration-200 shadow-lg shadow-blue-500/20"
             >
               Book a Free Consultation
@@ -107,7 +116,17 @@ export default function Navbar() {
               ))}
               <a
                 href="#contact"
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => {
+                  setMobileOpen(false);
+                  e.preventDefault();
+                  const el = document.getElementById("contact");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                    window.location.hash = "#contact";
+                  } else {
+                    window.location.href = "/#contact";
+                  }
+                }}
                 className="mt-2 px-5 py-3 text-center font-semibold text-white rounded-xl gradient-bg"
               >
                 Book a Free Consultation
