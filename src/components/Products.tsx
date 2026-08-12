@@ -38,8 +38,8 @@ const products = [
     badgeBg: "linear-gradient(135deg, #EAB308, #F59E0B)",
     stats: [
       { label: "Categories", value: "10+" },
-      { label: "Booking Flow", value: "Smart" },
-      { label: "Scheduling", value: "Real-time" },
+      { label: "Booking", value: "Smart" },
+      { label: "Scheduling", value: "Live" },
     ],
   },
   {
@@ -58,7 +58,7 @@ const products = [
     accentRgb: "16, 185, 129",
     badgeBg: "linear-gradient(135deg, #059669, #06B6D4)",
     stats: [
-      { label: "Billing Modes", value: "3 Types" },
+      { label: "Modes", value: "3" },
       { label: "Backend", value: "Django" },
       { label: "Database", value: "Supabase" },
     ],
@@ -253,20 +253,22 @@ export default function Products() {
 
                 {/* Stats */}
                 <div
-                  className="px-8 py-5 grid grid-cols-3 gap-3"
+                  className="px-3 sm:px-5 py-5 grid grid-cols-3 gap-1.5"
                   style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
                 >
                   {product.stats.map((stat) => (
-                    <div key={stat.label} className="text-center">
+                    <div key={stat.label} className="text-center overflow-hidden">
                       <div
-                        className="font-black text-lg"
+                        className="font-black text-sm sm:text-base lg:text-lg whitespace-nowrap"
                         style={{
                           color: `rgb(${product.accentRgb})`,
                         }}
                       >
                         {stat.value}
                       </div>
-                      <div className="text-slate-600 text-xs mt-0.5">{stat.label}</div>
+                      <div className="text-slate-500 text-[10px] sm:text-xs mt-0.5 whitespace-nowrap truncate font-medium">
+                        {stat.label}
+                      </div>
                     </div>
                   ))}
                 </div>
